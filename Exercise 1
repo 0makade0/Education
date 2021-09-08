@@ -1,0 +1,147 @@
+using System;
+
+namespace Languages
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+        m1: int countMagic=0;
+            int countNotMagic = 0;
+            int m;
+        //ВВод данных
+        m: Console.WriteLine("Вв-те размерность матрицы: ");
+            m = Convert.ToInt32(Console.ReadLine());
+            if (m < 2)
+            {
+                Console.WriteLine("Размер матрицы должен быть не меньше двух");
+                goto m;
+            }
+            while (countMagic == 0)
+            {
+                int i = 0;
+                int flag = 0;
+                int count = 1;
+                int SumFirstLine = 0;
+                int SumOtherLine = 0;
+                Random rand = new Random();          
+                int[,] Matrice = new int[m, m];
+                //Создание и заполнение массива 
+                int[] MassNumber = new int[m * m];
+                while (i < m)
+                {
+                    MassNumber[i] = rand.Next(1, m*m);
+                    for (int j = 0; j < i; j++)
+                    {
+                        if (MassNumber[i] == MassNumber[j])
+                        {
+                            flag = 1;
+                            break;
+                        }
+                    }
+                    if (flag == 0)
+                    {
+                        i++;
+                    }
+                    else
+                    {
+                        flag = 0;
+                    }
+                }
+                flag = 0;
+                //Сложение элементов первой строки
+                for (int j = 0; j < m; j++)
+                {
+                    SumFirstLine += MassNumber[j];
+                }
+                //Разбиение одномерного массива на матрицу
+                for (int j = 0; j < m * m; j++)
+                {
+                    while (i > m * count)
+                    {
+                        Matrice[j, count - 1] = MassNumber[j];
+                        i++;
+                    }
+                }
+                //Проверка на магию по строкам
+                for (int j = 0; j < m; j++)
+                {
+                    for (int k = 0; k < m; k++)
+                    {
+                        SumOtherLine = +Matrice[j, k];
+                    }
+                    if (SumOtherLine == SumFirstLine)
+                    {
+                        SumOtherLine = 0;
+                    }
+                    else
+                        flag = 1;
+                }
+                //Проверка на магию по столбцам
+                for (int k = 0; k < m; k++)
+                {
+                    for (int j = 0; j < m; j++)
+                    {
+                        SumOtherLine = +Matrice[j, k];
+                    }
+                    if (SumOtherLine == SumFirstLine)
+                    {
+                        SumOtherLine = 0;
+                    }
+                    else
+                        flag = 1;
+                }
+                //Проверка на магию по диагоналям
+                for (int j = 0; j < m; j++)
+                {
+                    SumOtherLine += Matrice[j, j];
+                }
+                if (SumOtherLine != SumFirstLine)
+                {
+                    SumOtherLine = 0;
+                    flag = 1;
+                }
+                for (int j = 0; j<m ; j++)
+                {
+                    for (int k = m-1; k > 0; k--)
+                    {
+                        SumOtherLine += Matrice[j, k];
+                    }
+                }
+                if (SumOtherLine != SumFirstLine)
+                {
+                    SumOtherLine = 0;
+                    flag = 1;
+                }
+                //Вывод магии матрицы
+                if (flag == 0)
+                {
+                    countMagic++;
+                    Console.WriteLine("Матрица является магической");
+                    //Вывод матрицы
+                    for (int j = 0; j < m; j++)
+                    {
+                        for (int k = 0; k < m; k++)
+                        {
+                            Console.WriteLine($"\t{Matrice[j, k]}");
+                        }
+                    }
+                }
+                else
+                {
+                    countNotMagic++;
+                }
+            }
+            Console.WriteLine($"Матрица станет магической с {countNotMagic} попытки");
+            Console.WriteLine("Хотите повторить? 1-да; любая другая кнопка - нет");
+            int c = Convert.ToInt32(Console.ReadLine());
+            if (c == 1)
+                goto m1;
+            else
+            {
+                Console.Clear();
+                Console.ReadLine(); 
+            }
+        }
+    }
+}
