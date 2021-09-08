@@ -6,7 +6,7 @@ namespace Languages
     {
         static void Main(string[] args)
         {
-        m1: int countMagic=0;
+        m1: int countMagic = 0;
             int countNotMagic = 0;
             int m;
         //ВВод данных
@@ -21,16 +21,16 @@ namespace Languages
             {
                 int i = 0;
                 int flag = 0;
-                int count = 1;
+                int count = 0;
                 int SumFirstLine = 0;
                 int SumOtherLine = 0;
-                Random rand = new Random();          
+                Random rand = new Random();
                 int[,] Matrice = new int[m, m];
                 //Создание и заполнение массива 
                 int[] MassNumber = new int[m * m];
-                while (i < m)
+                while (i < m*m)
                 {
-                    MassNumber[i] = rand.Next(1, m*m);
+                    MassNumber[i] = rand.Next(0, (m * m));
                     for (int j = 0; j < i; j++)
                     {
                         if (MassNumber[i] == MassNumber[j])
@@ -49,19 +49,20 @@ namespace Languages
                     }
                 }
                 flag = 0;
+              
+                //Разбиение одномерного массива на матрицу
+                for (int j = 0; j < m; j++)
+                {
+                    for (int k = 0; k < m ; k++)
+                    {
+                        Matrice[j, k] = MassNumber[count];
+                        count++;
+                    }    
+                }
                 //Сложение элементов первой строки
                 for (int j = 0; j < m; j++)
                 {
                     SumFirstLine += MassNumber[j];
-                }
-                //Разбиение одномерного массива на матрицу
-                for (int j = 0; j < m * m; j++)
-                {
-                    while (i > m * count)
-                    {
-                        Matrice[j, count - 1] = MassNumber[j];
-                        i++;
-                    }
                 }
                 //Проверка на магию по строкам
                 for (int j = 0; j < m; j++)
@@ -101,16 +102,15 @@ namespace Languages
                     SumOtherLine = 0;
                     flag = 1;
                 }
-                for (int j = 0; j<m ; j++)
+                for (int j = 0; j < m; j++)
                 {
-                    for (int k = m-1; k > 0; k--)
+                    for (int k = m - 1; k > 0; k--)
                     {
                         SumOtherLine += Matrice[j, k];
                     }
                 }
                 if (SumOtherLine != SumFirstLine)
                 {
-                    SumOtherLine = 0;
                     flag = 1;
                 }
                 //Вывод магии матрицы
@@ -123,14 +123,16 @@ namespace Languages
                     {
                         for (int k = 0; k < m; k++)
                         {
-                            Console.WriteLine($"\t{Matrice[j, k]}");
+                            Console.Write($"{Matrice[j, k]} ");
                         }
+                        Console.WriteLine();
                     }
                 }
                 else
                 {
                     countNotMagic++;
                 }
+                
             }
             Console.WriteLine($"Матрица станет магической с {countNotMagic} попытки");
             Console.WriteLine("Хотите повторить? 1-да; любая другая кнопка - нет");
@@ -140,7 +142,7 @@ namespace Languages
             else
             {
                 Console.Clear();
-                Console.ReadLine(); 
+                Console.ReadLine();
             }
         }
     }
