@@ -6,15 +6,9 @@ namespace Languages
     {
         static void Main(string[] args)
         {
-        m1: int flag = 0;
             int matrixSize;
             int elementsCount; //Количество элементов матрицы
-            int SumFirstLine = 0; //Сумма элементов первой строки
-            int SumOtherLine = 0; //Сумма элементов других строк
-            int count = 0; //счётчик для разбиения массива на матрицу
-            var rand = new Random();
-            int[] MassNumber;
-            int[,] Matrix;
+            bool verification = false; //истинность проверки на магический квадрат
             //ВВод данных
             while (true)
             {
@@ -24,104 +18,130 @@ namespace Languages
                     matrixSize = Convert.ToInt32(Console.ReadLine());
                     if(matrixSize<3)
                     {
-                        throw new FormatException("Введён размер матрицы меньше трёх. Повторите попытку"); 
+                        throw new FormatException("Введён размер матрицы меньше трёх. Повторите попытку."); 
                     }
                     elementsCount = matrixSize * matrixSize;
                     break;
                 }
                 catch(FormatException ex)
                 {
-                    Console.WriteLine($"{ex.Message} Размерность матрицы должна быть больше 0");
+                    Console.WriteLine($"{ex.Message} Размерность матрицы должна быть больше 2");
                 }
             }
-            MassNumber = new int[elementsCount];
-            //Создание и заполнение массива 
-            for(int i=0;i<MassNumber.Length;i++)
+            m1:
+            while (verification == false)
             {
-                MassNumber[i] = rand.Next(1, elementsCount+1);
-                for (int j = 0; j < i; j++)
+            int flag = 0;
+                
+                int SumFirstLine = 0; //Сумма элементов первой строки
+                int SumOtherLine = 0; //Сумма элементов других строк
+                int count = 0; //счётчик для разбиения массива на матрицу
+                
+                int countMagic = 0;
+                var rand = new Random();
+                int[] MassNumber;
+                int[,] Matrix;
+                MassNumber = new int[elementsCount];
+                //Создание и заполнение массива 
+                for (int i = 0; i < MassNumber.Length; i++)
                 {
-                    if (MassNumber[i] == MassNumber[j])
+                    MassNumber[i] = rand.Next(1, elementsCount + 1);
+                    for (int j = 0; j < i; j++)
                     {
-                        flag = 1;
-                        break;
+                        if (MassNumber[i] == MassNumber[j])
+                        {
+                            flag = 1;
+                            break;
+                        }
+                    }
+                    if (flag == 1)
+                    {
+                        i--;
+                        flag = 0;
                     }
                 }
-                if (flag == 1)
-                {
-                    i--;
-                    flag = 0;
-                }
-            }
 
-            Matrix = new int[matrixSize,matrixSize];
-            //Разбиение одномерного массива на матрицу
-            for (int i = 0; i < matrixSize; i++)
-            {
-                for (int j = 0; j < matrixSize; j++)
-                {
-                    Matrix[i, j] = MassNumber[count];
-                    count++;
-                }
-            }
-            //Сложение элементов первой строки
-            for (int i = 0; i < matrixSize; i++)
-            {
-                SumFirstLine += MassNumber[i];
-            }
-            //Проверка на магию по строкам
-            for (int i = 0; i < matrixSize; i++)
-            {
-                for (int j = 0; j < matrixSize; j++)
-                {
-                    SumOtherLine = +Matrix[i, j];
-                }
-                if (SumOtherLine == SumFirstLine)
-                {
-                    SumOtherLine = 0;
-                }
-            }
-            //Проверка на магию по столбцам
-            for (int j = 0; j < matrixSize; j++)
-            {
+                Matrix = new int[matrixSize, matrixSize];
+                //Разбиение одномерного массива на матрицу
                 for (int i = 0; i < matrixSize; i++)
                 {
-                    SumOtherLine = +Matrix[i, j];
+                    for (int j = 0; j < matrixSize; j++)
+                    {
+                        Matrix[i, j] = MassNumber[count];
+                        count++;
+                    }
+                }
+                //Сложение элементов первой строки
+                for (int i = 0; i < matrixSize; i++)
+                {
+                    SumFirstLine += MassNumber[i];
+                }
+                //Проверка на магию по строкам
+                for (int i = 0; i < matrixSize; i++)
+                {
+                    for (int j = 0; j < matrixSize; j++)
+                    {
+                        SumOtherLine += Matrix[i, j];
+                    }
+                    if (SumOtherLine == SumFirstLine)
+                    {
+                        SumOtherLine = 0;
+                    }
+                    else
+                    {
+                        SumOtherLine = 0;
+                        flag = 1;
+                    }
+                }
+                //Проверка на магию по столбцам
+                for (int j = 0; j < matrixSize; j++)
+                {
+                    for (int i = 0; i < matrixSize; i++)
+                    {
+                        SumOtherLine += Matrix[i, j];
+                    }
+                    if (SumOtherLine == SumFirstLine)
+                    {
+                        SumOtherLine = 0;
+                    }
+                    else
+                    {
+                        SumOtherLine = 0;
+                        flag = 1;
+                    }
+                }
+                //Проверка на магию по диагоналям
+                for (int j = 0; j < matrixSize; j++)
+                {
+                    SumOtherLine += Matrix[j, j];
                 }
                 if (SumOtherLine == SumFirstLine)
                 {
                     SumOtherLine = 0;
                 }
-            }
-            //Проверка на магию по диагоналям
-            for (int j = 0; j < matrixSize; j++)
-            {
-                SumOtherLine += Matrix[j, j];
-            }
-            if (SumOtherLine != SumFirstLine)
-            {
-                SumOtherLine = 0;
-                flag = 1;
-            }
-            for (int i = 0; i < matrixSize; i++)
-            {
-                for (int j = matrixSize - 1; j > 0; j--)
+                else
                 {
-                    SumOtherLine += Matrix[i, j];
+                    SumOtherLine = 0;
+                    flag = 1;
                 }
-            }
-            if (SumOtherLine != SumFirstLine)
-            {
-                flag = 1;
-            }
-            //Вывод проверки матрицы на магический квадрат
-            if (flag == 0)
-            {
-                Console.WriteLine("Матрица является магическим квадратом");
-            }
-            else
-                Console.WriteLine("Матрица не является магическим квадратом");
-                //Вывод матрицы
+                for (int i = 0; i < matrixSize; i++)
+                {
+                    for (int j = 0; j < matrixSize; j++)
+                    {
+                        if (i + j == matrixSize - 1)
+                            SumOtherLine += Matrix[i, j];
+                    }
+                }
+                if (SumOtherLine == SumFirstLine)
+                {
+                    SumOtherLine = 0;
+                }
+                else
+                {
+                    SumOtherLine = 0;
+                    flag = 1;
+                }              
+                    //Вывод матрицы
                 for (int i = 0; i < matrixSize; i++)
                 {
                     for (int j = 0; j < matrixSize; j++)
@@ -130,6 +150,19 @@ namespace Languages
                     }
                     Console.WriteLine();
                 }
+                //Вывод проверки матрицы на магический квадрат
+                if (flag == 0)
+                {
+                    Console.WriteLine("Матрица является магическим квадратом");
+                    verification = true;
+                    Console.WriteLine(countMagic);
+                }
+                else
+                {
+                    Console.WriteLine("Матрица не является магическим квадратом");
+                    countMagic++;
+                }
+            }
             Console.WriteLine("Хотите повторить? 1-да; любая другая кнопка - нет");
             int c = Convert.ToInt32(Console.ReadLine());
             if (c == 1)
