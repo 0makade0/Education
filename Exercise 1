@@ -6,6 +6,8 @@ namespace Languages
     {
         static void Main(string[] args)
         {
+            int countMagic = 0;//подсчёт количества попыток проверок на магический квадрат
+            var rand = new Random();
             int matrixSize;
             int elementsCount; //Количество элементов матрицы
             bool verification = false; //истинность проверки на магический квадрат
@@ -31,23 +33,22 @@ namespace Languages
         m1:
             while (verification == false)
             {
+                int b = 0;//переменная для while заполнения массива
                 int flag = 0;
                 int SumFirstLine = 0; //Сумма элементов первой строки
                 int SumOtherLine1 = 0; //Сумма элементов других строк
                 int SumOtherLine2 = 0; //Сумма элементов других строк
-                int count = 0; //счётчик для разбиения массива на матрицу              
-                int countMagic = 0;
-                var rand = new Random();
+                int count = 0; //счётчик для разбиения массива на матрицу        
                 int[] MassNumber;
                 int[,] Matrix;
                 MassNumber = new int[elementsCount];
                 //Создание и заполнение массива 
-                for (int i = 0; i < MassNumber.Length; i++)
+                while (b < MassNumber.Length)
                 {
-                    MassNumber[i] = rand.Next(1, elementsCount + 1);
-                    for (int j = 0; j < i; j++)
+                    MassNumber[b] = rand.Next(1, elementsCount + 1);
+                    for (int j = 0; j < b; j++)
                     {
-                        if (MassNumber[i] == MassNumber[j])
+                        if (MassNumber[b] == MassNumber[j])
                         {
                             flag = 1;
                             break;
@@ -55,9 +56,11 @@ namespace Languages
                     }
                     if (flag == 1)
                     {
-                        i--;
+                        b--;
                         flag = 0;
                     }
+                    else
+                        b++;
                 }
                 Matrix = new int[matrixSize, matrixSize];
                 //Разбиение одномерного массива на матрицу
@@ -74,7 +77,7 @@ namespace Languages
                 {
                     SumFirstLine += MassNumber[i];
                 }
-                //Проверка на магию по строкам
+                //Проверка на магию по строкам/столбцам
                 for (int i = 0; i < matrixSize; i++)
                 {
                     for (int j = 0; j < matrixSize; j++)
@@ -117,7 +120,7 @@ namespace Languages
                 {
                     for (int j = 0; j < matrixSize; j++)
                     {
-                        Console.Write(Matrix[i, j]);
+                        Console.Write(Matrix[i, j]+ " ");
                     }
                     Console.WriteLine();
                 }
@@ -126,14 +129,14 @@ namespace Languages
                 {
                     Console.WriteLine("Матрица является магическим квадратом");
                     verification = true;
-                    Console.WriteLine(countMagic);
-                }
+                }          
                 else
                 {
                     Console.WriteLine("Матрица не является магическим квадратом");
                     countMagic++;
                 }
             }
+            Console.WriteLine($"Магический квадрат получился с {countMagic} попытки");
             Console.WriteLine("Хотите повторить? 1-да; любая другая кнопка - нет");
             int c = Convert.ToInt32(Console.ReadLine());
             if (c == 1)
