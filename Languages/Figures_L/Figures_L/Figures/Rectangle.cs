@@ -2,55 +2,35 @@
 
 namespace Figures_L.Figures
 {
-    public class Rectangle : IFigure
+    public class Rectangle : Calculation, IFigure
     {
-        private double side1;
-        private double side2;
-        public double Side1
-        {
-            get { return side1; }
-            set
-            {
-                side1 = value;
-            }
-        }
-        public double Side2
-        {
-            get { return side2; }
-            set
-            {
-                side2 = value;
-            }
-        }
-        public bool Verification(double side1, double side2)
-        {
-            if (side1 == side2)
-                return true;
-            else
-                return false;
-        }
+        public double side1 { get; set; }
+        public double side2 { get; set; }
         public Rectangle(double side1, double side2)
         {
             this.side1 = side1;
             this.side2 = side2;
         }
-        public double Perimetr(double side1, double side2)
+        public string Verification()
         {
-            double perimetr;
-            perimetr = (side1 + side2) * 2;
-            return perimetr;
+            if (side1 == side2)
+                return "Квадрат";
+            else
+                return "Прямоугольнк";
+        }
+        public override double Perimetr()
+        {
+            return (side1 + side2) * 2;
         }
 
-        public double Square(double side1, double side2)
+        public override double Square()
         {
-            double square;
-            square = side1 * side2;
-            return square;
+            return side1 * side2;
         }
 
         public void GetInfo()
         {
-            if (Verification(side1, side2) == true)
+            if (Verification() == "Квадрат")
             {
                 Console.WriteLine("Информация о квадрате: ");
                 Console.WriteLine($"Сторона квадрата={side1}");
@@ -61,8 +41,8 @@ namespace Figures_L.Figures
                 Console.WriteLine($"Первая сторона прямоугольника={side1}");
                 Console.WriteLine($"Вторая сторона прямоугольника={side2}");
             }
-            Console.WriteLine($"Периметр={Perimetr(side1, side2)}");
-            Console.WriteLine($"Площадь={Square(side1, side2)}");
+            Console.WriteLine($"Периметр={Perimetr()}");
+            Console.WriteLine($"Площадь={Square()}");
         }
     }
 }
