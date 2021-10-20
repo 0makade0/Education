@@ -7,11 +7,25 @@ namespace Figures_L.Figures
         public double side1 { get; set; }
         public double side2 { get; set; }
         public double side3 { get; set; }
-        public Triangle(double side1, double side2, double side3)
+        public Triangle()
         {
-            this.side1 = side1;
-            this.side2 = side2;
-            this.side3 = side3;
+            while (true)
+            {
+                Console.WriteLine("Вы выбрали треугольник");
+                Console.WriteLine("Вв-те первую сторону треугольника");
+                side1 = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("Вв-те вторую сторону треугольника");
+                side2 = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("Вв-те третью сторону треугольника");
+                side3 = Convert.ToDouble(Console.ReadLine());
+                if (side1 <= 0 || side2 <= 0 || side3 <= 0)
+                {
+                    Console.WriteLine("Сторона должна быть больше нуля");
+                }
+                GetInfo();
+                Console.WriteLine();
+                break;
+            }
         }
         //Проверка на вид треугольника
         public string Verification()
@@ -29,6 +43,16 @@ namespace Figures_L.Figures
                 return "Разносторонний";
             }
         }
+        //Метод, который проверяет, существует ли треугольник
+        public bool ExistenceCheck()
+        {
+            bool Check;
+            if (side1 + side2 > side3 && side1 + side3 > side2 && side3 + side2 > side1)
+                Check = true;
+            else
+                Check = false;
+            return Check;
+        }
         public override double Perimetr()
         {
             return side1 + side2 + side3;
@@ -41,11 +65,15 @@ namespace Figures_L.Figures
         }
         public void GetInfo()
         {
-            Console.WriteLine("Информация о треугольнике:");
-            Console.WriteLine($"Вид треугольника:{Verification()}");
-            Console.WriteLine($"Периметр треугольника:{Perimetr()}");
-            Console.WriteLine($"Площадь треугольника:{Square()}");
+            if (ExistenceCheck() == true)
+            {
+                Console.WriteLine("Информация о треугольнике:");
+                Console.WriteLine($"Вид треугольника:{Verification()}");
+                Console.WriteLine($"Периметр треугольника:{Perimetr()}");
+                Console.WriteLine($"Площадь треугольника:{Square()}");
+            }
+            else
+                Console.WriteLine("Треугольник не существует");
         }
-
     }
 }

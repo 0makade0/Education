@@ -6,17 +6,31 @@ namespace Figures_L.Figures
     {
         public double radius1 { get; set; }
         public double radius2 { get; set; }
+        public Ellipse()
+        {
+            while (true)
+            {
+                Console.WriteLine("Вы выбрали круг.\nВведите его радиусы");
+                Console.WriteLine("Вв-те первый радиус круга");
+                radius1 = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("Вв-те второй радиус круга");
+                radius2 = Convert.ToDouble(Console.ReadLine());
+                if (radius1 <= 0 || radius2 <= 0)
+                {
+                    Console.WriteLine("Радиус должен быть больше нуля");
+                    continue;
+                }
+                GetInfo();
+                Console.WriteLine();
+                break;
+            }
+        }
         public string Verification()
         {
             if (radius1 == radius2)
                 return "Круг";
             else
                 return "Эллипс";
-        }
-        public Ellipse(double radius1, double radius2)
-        {
-            this.radius1 = radius1;
-            this.radius2 = radius2;
         }
         //У круга и эллипса разные формулы вычисления периметра
         //Поэтому для вычисления можно использовать два варианта:

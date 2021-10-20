@@ -6,10 +6,23 @@ namespace Figures_L.Figures
     {
         public double side1 { get; set; }
         public double side2 { get; set; }
-        public Rectangle(double side1, double side2)
+        public Rectangle()
         {
-            this.side1 = side1;
-            this.side2 = side2;
+            while (true)
+            {
+                Console.WriteLine("Вы выбрали прямоугольник.\nВведите его стороны");
+                Console.WriteLine("Вв-те первую сторону прямоугольника");
+                side1 = Convert.ToDouble(Console.ReadLine());
+                Console.WriteLine("Вв-те вторую сторону прямоугольника");
+                side2 = Convert.ToDouble(Console.ReadLine());
+                if (side1 <= 0 || side2 <= 0)
+                {
+                    Console.WriteLine("Сторона должна быть больше нуля");
+                }
+                GetInfo();
+                Console.WriteLine();
+                break;
+            }
         }
         public string Verification()
         {
