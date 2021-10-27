@@ -2,28 +2,17 @@
 
 namespace Figures_L.Figures
 {
-    public class Ellipse : Calculation, IFigure
+    public class Ellipse : IFigure
     {
-        public double radius1 { get; set; }
-        public double radius2 { get; set; }
+        public int radius1 { get; set; }
+        public int radius2 { get; set; }
         public Ellipse()
         {
-            while (true)
-            {
-                Console.WriteLine("Вы выбрали круг.\nВведите его радиусы");
-                Console.WriteLine("Вв-те первый радиус круга");
-                radius1 = Convert.ToDouble(Console.ReadLine());
-                Console.WriteLine("Вв-те второй радиус круга");
-                radius2 = Convert.ToDouble(Console.ReadLine());
-                if (radius1 <= 0 || radius2 <= 0)
-                {
-                    Console.WriteLine("Радиус должен быть больше нуля");
-                    continue;
-                }
-                GetInfo();
-                Console.WriteLine();
-                break;
-            }
+            Random random = new Random();
+            radius1 = random.Next(1, 3);
+            radius2 = random.Next(1, 3);
+            GetInfo();
+            Console.WriteLine();
         }
         public string Verification()
         {
@@ -36,7 +25,7 @@ namespace Figures_L.Figures
         //Поэтому для вычисления можно использовать два варианта:
         //1.Либо проверка на равенства радиусов и через условные оператор использовать формулы
         //2.Либо для каждой из фигур использовать свой метод.
-        public override double Perimetr()
+        public double Perimetr()
         {
             //Проверка на равенство радиусов
             if (radius1 == radius2)
@@ -49,7 +38,7 @@ namespace Figures_L.Figures
             }
         }
 
-        public override double Square()
+        public double Square()
         {
             //Что у эллипса, что у круга формулы одинаковы
             return (Math.PI * radius1 * radius2);

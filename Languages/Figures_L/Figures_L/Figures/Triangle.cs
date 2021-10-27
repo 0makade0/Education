@@ -2,30 +2,19 @@
 
 namespace Figures_L.Figures
 {
-    public class Triangle : Calculation, IFigure
+    public class Triangle : IFigure
     {
-        public double side1 { get; set; }
-        public double side2 { get; set; }
-        public double side3 { get; set; }
+        public int side1 { get; set; }
+        public int side2 { get; set; }
+        public int side3 { get; set; }
         public Triangle()
         {
-            while (true)
-            {
-                Console.WriteLine("Вы выбрали треугольник");
-                Console.WriteLine("Вв-те первую сторону треугольника");
-                side1 = Convert.ToDouble(Console.ReadLine());
-                Console.WriteLine("Вв-те вторую сторону треугольника");
-                side2 = Convert.ToDouble(Console.ReadLine());
-                Console.WriteLine("Вв-те третью сторону треугольника");
-                side3 = Convert.ToDouble(Console.ReadLine());
-                if (side1 <= 0 || side2 <= 0 || side3 <= 0)
-                {
-                    Console.WriteLine("Сторона должна быть больше нуля");
-                }
-                GetInfo();
-                Console.WriteLine();
-                break;
-            }
+            Random random = new Random();
+            side1 = random.Next(1, 10);
+            side2 = random.Next(1, 10);
+            side3 = random.Next(1, 10);
+            GetInfo();
+            Console.WriteLine();
         }
         //Проверка на вид треугольника
         public string Verification()
@@ -53,11 +42,11 @@ namespace Figures_L.Figures
                 Check = false;
             return Check;
         }
-        public override double Perimetr()
+        public double Perimetr()
         {
-            return side1 + side2 + side3;
+            return (double)(side1 + side2 + side3);
         }
-        public override double Square()
+        public double Square()
         {
             double Semiperimeter;
             Semiperimeter = (side1 + side2 + side3) / 2;

@@ -2,27 +2,17 @@
 
 namespace Figures_L.Figures
 {
-    public class Rectangle : Calculation, IFigure
+    public class Rectangle : IFigure
     {
-        public double side1 { get; set; }
-        public double side2 { get; set; }
+        public int side1 { get; set; }
+        public int side2 { get; set; }
         public Rectangle()
         {
-            while (true)
-            {
-                Console.WriteLine("Вы выбрали прямоугольник.\nВведите его стороны");
-                Console.WriteLine("Вв-те первую сторону прямоугольника");
-                side1 = Convert.ToDouble(Console.ReadLine());
-                Console.WriteLine("Вв-те вторую сторону прямоугольника");
-                side2 = Convert.ToDouble(Console.ReadLine());
-                if (side1 <= 0 || side2 <= 0)
-                {
-                    Console.WriteLine("Сторона должна быть больше нуля");
-                }
-                GetInfo();
-                Console.WriteLine();
-                break;
-            }
+            Random random = new Random();
+            side1 = random.Next(1, 3);
+            side2 = random.Next(1, 3);
+            GetInfo();
+            Console.WriteLine();
         }
         public string Verification()
         {
@@ -31,12 +21,12 @@ namespace Figures_L.Figures
             else
                 return "Прямоугольнк";
         }
-        public override double Perimetr()
+        public double Perimetr()
         {
             return (side1 + side2) * 2;
         }
 
-        public override double Square()
+        public double Square()
         {
             return side1 * side2;
         }
