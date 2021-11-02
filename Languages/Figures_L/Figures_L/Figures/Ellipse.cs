@@ -11,7 +11,6 @@ namespace Figures_L.Figures
             Random random = new Random();
             radius1 = random.Next(1, 3);
             radius2 = random.Next(1, 3);
-            GetInfo();
             Console.WriteLine();
         }
         public string Verification()

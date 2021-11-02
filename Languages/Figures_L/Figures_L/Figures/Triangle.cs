@@ -13,7 +13,6 @@ namespace Figures_L.Figures
             side1 = random.Next(1, 10);
             side2 = random.Next(1, 10);
             side3 = random.Next(1, 10);
-            GetInfo();
             Console.WriteLine();
         }
         //Проверка на вид треугольника

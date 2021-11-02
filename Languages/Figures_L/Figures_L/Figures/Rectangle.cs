@@ -11,7 +11,6 @@ namespace Figures_L.Figures
             Random random = new Random();
             side1 = random.Next(1, 3);
             side2 = random.Next(1, 3);
-            GetInfo();
             Console.WriteLine();
         }
         public string Verification()

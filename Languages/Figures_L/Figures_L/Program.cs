@@ -1,5 +1,6 @@
 ﻿using System;
 using Figures_L.Figures;
+using System.Collections.Generic;
 
 namespace Figures_L
 {
@@ -9,27 +10,46 @@ namespace Figures_L
         {
             bool verification;
             int InputData;
+            int countFigure;//количество фигур, которые будет высчитываться для пользователя
+            List<int> listFigure;
             do
             {
                 verification = true;
                 //Ввод данных пользователем
+                Console.WriteLine("Вв-те количество фигур:");
+                countFigure = Convert.ToInt16(Console.ReadLine());
+                if(countFigure<=0)
+                {
+                    Console.WriteLine("Число должно быть больше нуля");
+                    Main();
+                }
                 Console.WriteLine("Вв-те номер фигуры, которая вам необходима");
                 try
                 {
+                    listFigure = new List<int>(countFigure);
                     Console.WriteLine("1-Прямоугольник;\n2-Круг;\n3-Треугольник\nДругая цифра-выход.");
                     InputData = Convert.ToInt32(Console.ReadLine());
                     if (InputData == 1)
                     {
-                        Rectangle rectangle = new Rectangle();//создание объекта класса Rectangle
+                        for (int i = 0; i < countFigure; i++)
+                        {
+                            Rectangle rectangle = new Rectangle();//создание объекта класса Rectangle
+                            listFigure.Add(rectangle);
+                        }
                     }
                     else if (InputData == 2)
                     {
-                        Ellipse ellipse = new Ellipse();//Создание объекта класса Ellipse
+                        for (int i = 0; i < countFigure; i++)
+                        {
+                            Ellipse ellipse = new Ellipse();//Создание объекта класса Ellipse
+                        }
                     }
                     else if (InputData == 3)
                     {
-
-                        Triangle triangle = new Triangle();//создание объекта класса Triangle
+                        for (int i = 0; i < countFigure; i++)
+                        {
+                            Triangle triangle = new Triangle();//создание объекта класса Triangle
+                        }
                     }
                     else
                     {
