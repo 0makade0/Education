@@ -1,6 +1,8 @@
 ﻿using System;
-using Figures_L.Figures;
+using Figures_L.Figures_L;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Figures_L
 {
@@ -10,50 +12,71 @@ namespace Figures_L
         {
             bool verification;
             int InputData;
-            int countFigure;//количество фигур, которые будет высчитываться для пользователя
-            List<int> listFigure;
+            List<IFigure> figures = new List<IFigure>(10);
+            IFigure figure;
             do
             {
                 verification = true;
-                //Ввод данных пользователем
-                Console.WriteLine("Вв-те количество фигур:");
-                countFigure = Convert.ToInt16(Console.ReadLine());
-                if(countFigure<=0)
-                {
-                    Console.WriteLine("Число должно быть больше нуля");
-                    Main();
-                }
+                //Ввод данных пользователем  
                 Console.WriteLine("Вв-те номер фигуры, которая вам необходима");
                 try
                 {
-                    listFigure = new List<int>(countFigure);
-                    Console.WriteLine("1-Прямоугольник;\n2-Круг;\n3-Треугольник\nДругая цифра-выход.");
+                    Console.WriteLine("1-Прямоугольник;\n2-Круг;\n3-Треугольник");
                     InputData = Convert.ToInt32(Console.ReadLine());
-                    if (InputData == 1)
+                    while (figures.Count != 10)
                     {
-                        for (int i = 0; i < countFigure; i++)
+                        switch (InputData)
                         {
-                            Rectangle rectangle = new Rectangle();//создание объекта класса Rectangle
-                            listFigure.Add(rectangle);
+                            case 1:
+                                figure = new Rectangle();
+                                break;
+                            case 2:
+                                figure = new Ellipse();
+                                break;
+                            default:
+                                figure = new Triangle();
+                                break;
                         }
+                        figures.Add(figure);
                     }
-                    else if (InputData == 2)
+                    // Вывод первоначального списка
+                    Console.WriteLine("Первоначальный список");
+                    if (InputData == 3)
                     {
-                        for (int i = 0; i < countFigure; i++)
-                        {
-                            Ellipse ellipse = new Ellipse();//Создание объекта класса Ellipse
-                        }
-                    }
-                    else if (InputData == 3)
-                    {
-                        for (int i = 0; i < countFigure; i++)
-                        {
-                            Triangle triangle = new Triangle();//создание объекта класса Triangle
-                        }
+                        Console.WriteLine($"{"Название",-19}{"Стороны",-11}{"Периметр",-12}{"Площадь",-11}{"Вид треугольника",-20}");
                     }
                     else
+                        Console.WriteLine($"{"Название",-19}{"Стороны",-11}{"Периметр",-12}{"Площадь",-11}");
+                    foreach (IFigure f in figures)
                     {
-                        Environment.Exit(0);
+                        f.GetInfo();
+                    }
+                    figures = figures.OrderBy(x => x.Perimetr()).ToList();
+                    IEnumerator ie = figures.GetEnumerator();
+                    // Вывод отсортированного списка с помощью foreach
+                    Console.WriteLine("\nОтсортированный список (foreach)");
+                    if (InputData == 3)
+                    {
+                        Console.WriteLine($"{"Название",-19}{"Стороны",-11}{"Периметр",-12}{"Площадь",-11}{"Вид треугольника",-20}");
+                    }
+                    else
+                        Console.WriteLine($"{"Название",-19}{"Стороны",-11}{"Периметр",-12}{"Площадь",-11}");
+                    foreach (IFigure item in figures)
+                    {
+                        item.GetInfo();
+                    }
+                    // Вывод отсортированного списка с помощью while
+                    Console.WriteLine("\nОтсортированный список (while)");
+                    if(InputData==3)
+                    {
+                        Console.WriteLine($"{"Название",-19}{"Стороны",-11}{"Периметр",-12}{"Площадь",-11}{"Вид треугольника",-20}");
+                    }
+                    else
+                        Console.WriteLine($"{"Название",-19}{"Стороны",-11}{"Периметр",-12}{"Площадь",-11}");
+                    while (ie.MoveNext())
+                    {
+                        figure = (IFigure)ie.Current;
+                        figure.GetInfo();
                     }
                     Console.WriteLine("Хотите повторить?\n1-да;\nДругое число-нет");
                     var check = int.Parse(Console.ReadLine());

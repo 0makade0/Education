@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Figures_L.Figures
+namespace Figures_L.Figures_L
 {
     public class Rectangle : IFigure
     {
@@ -9,16 +9,8 @@ namespace Figures_L.Figures
         public Rectangle()
         {
             Random random = new Random();
-            side1 = random.Next(1, 3);
-            side2 = random.Next(1, 3);
-            Console.WriteLine();
-        }
-        public string Verification()
-        {
-            if (side1 == side2)
-                return "Квадрат";
-            else
-                return "Прямоугольнк";
+            side1 = random.Next(1, 4);
+            side2 = random.Next(1, 4);
         }
         public double Perimetr()
         {
@@ -32,19 +24,14 @@ namespace Figures_L.Figures
 
         public void GetInfo()
         {
-            if (Verification() == "Квадрат")
+            if (side1 == side2)
             {
-                Console.WriteLine("Информация о квадрате: ");
-                Console.WriteLine($"Сторона квадрата={side1}");
+                Console.WriteLine($"{"Квадрат",-19}{$"{side1}, {side2}",-11}{Perimetr(),-12}{Square(),-11}");
             }
             else
             {
-                Console.WriteLine("Информация о прямоугольнике: ");
-                Console.WriteLine($"Первая сторона прямоугольника={side1}");
-                Console.WriteLine($"Вторая сторона прямоугольника={side2}");
+                Console.WriteLine($"{"Прямоугольник",-19}{$"{side1}, {side2}",-11}{Perimetr(),-12}{Square(),-11}");
             }
-            Console.WriteLine($"Периметр={Perimetr()}");
-            Console.WriteLine($"Площадь={Square()}");
         }
     }
 }

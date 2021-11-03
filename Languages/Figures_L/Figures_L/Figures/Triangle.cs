@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Figures_L.Figures
+namespace Figures_L.Figures_L
 {
     public class Triangle : IFigure
     {
@@ -10,12 +10,26 @@ namespace Figures_L.Figures
         public Triangle()
         {
             Random random = new Random();
-            side1 = random.Next(1, 10);
-            side2 = random.Next(1, 10);
-            side3 = random.Next(1, 10);
-            Console.WriteLine();
+            while(!(side1+side2>side3&& side1 + side3 > side2 && side3 + side2 > side1))
+            {
+                side1 = random.Next(1, 4);
+                side2 = random.Next(1, 4);
+                side3 = random.Next(1, 4);
+            }
         }
-        //Проверка на вид треугольника
+        //Метод, который проверяет, существует ли треугольник
+        public double Perimetr()
+        {
+            return (double)(side1 + side2 + side3);
+        }
+        public double Square()
+        {
+            double Semiperimeter;
+            double Area;
+            Semiperimeter = (side1 + side2 + side3) / 2;
+            Area = Math.Round(Math.Sqrt(Semiperimeter * (Semiperimeter - side1) * (Semiperimeter - side2) * (Semiperimeter - side3)));
+            return Area;
+        }
         public string Verification()
         {
             if (side1 == side2 && side1 == side3)
@@ -31,37 +45,9 @@ namespace Figures_L.Figures
                 return "Разносторонний";
             }
         }
-        //Метод, который проверяет, существует ли треугольник
-        public bool ExistenceCheck()
-        {
-            bool Check;
-            if (side1 + side2 > side3 && side1 + side3 > side2 && side3 + side2 > side1)
-                Check = true;
-            else
-                Check = false;
-            return Check;
-        }
-        public double Perimetr()
-        {
-            return (double)(side1 + side2 + side3);
-        }
-        public double Square()
-        {
-            double Semiperimeter;
-            Semiperimeter = (side1 + side2 + side3) / 2;
-            return (Math.Sqrt(Semiperimeter * (Semiperimeter - side1) * (Semiperimeter - side2) * (Semiperimeter - side3)));
-        }
         public void GetInfo()
         {
-            if (ExistenceCheck() == true)
-            {
-                Console.WriteLine("Информация о треугольнике:");
-                Console.WriteLine($"Вид треугольника:{Verification()}");
-                Console.WriteLine($"Периметр треугольника:{Perimetr()}");
-                Console.WriteLine($"Площадь треугольника:{Square()}");
-            }
-            else
-                Console.WriteLine("Треугольник не существует");
+            Console.WriteLine($"{"Треугольник",-19}{$"{side1}, {side2}, {side3}",-11}{Perimetr(),-12}{Square(),-11}{Verification(),-20}");
         }
     }
 }

@@ -1,10 +1,8 @@
-﻿namespace Figures_L.Figures
+﻿namespace Figures_L.Figures_L
 {
     public interface IFigure
     {
-        //Проверка фигуры
-        string Verification();
-        public double Perimetr();
+       public double Perimetr();
         //Абстрактный метод для подсчёта площади
         public double Square();
         //Вывод всей информации о фигуре

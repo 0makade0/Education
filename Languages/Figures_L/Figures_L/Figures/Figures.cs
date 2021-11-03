@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections;
 
-namespace Figures_L.Figures
+namespace Figures_L.Figures_L
 {
-    public class Figures : IEnumerable
+    public abstract class Figure
     {
-       public  List<Figures> figures = new List<Figures>();
-        public IEnumerator GetEnumerator()
-        {
-            return figures.GetEnumerator();
-        }
-        public void Addition(Figures figure)
-        {
-            figures.Add(figure);
-        }
+        protected Random random = new Random();
+        public abstract double Area();
+        public abstract double Perimeter();
+        public abstract void Info();
     }
 }

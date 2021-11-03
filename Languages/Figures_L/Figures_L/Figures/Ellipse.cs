@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Figures_L.Figures
+namespace Figures_L.Figures_L
 {
     public class Ellipse : IFigure
     {
@@ -9,21 +9,9 @@ namespace Figures_L.Figures
         public Ellipse()
         {
             Random random = new Random();
-            radius1 = random.Next(1, 3);
-            radius2 = random.Next(1, 3);
-            Console.WriteLine();
+            radius1 = random.Next(1, 4);
+            radius2 = random.Next(1, 4);
         }
-        public string Verification()
-        {
-            if (radius1 == radius2)
-                return "Круг";
-            else
-                return "Эллипс";
-        }
-        //У круга и эллипса разные формулы вычисления периметра
-        //Поэтому для вычисления можно использовать два варианта:
-        //1.Либо проверка на равенства радиусов и через условные оператор использовать формулы
-        //2.Либо для каждой из фигур использовать свой метод.
         public double Perimetr()
         {
             //Проверка на равенство радиусов
@@ -45,19 +33,14 @@ namespace Figures_L.Figures
 
         public void GetInfo()
         {
-            if (Verification() == "Круг")
+            if (radius1 == radius2)
             {
-                Console.WriteLine("Информация о круге: ");
-                Console.WriteLine($"Радиус круга={radius1}");
+                Console.WriteLine($"{"Окружность",-19}{$"{radius1}, {radius2}",-11}{Perimetr(),-12}{Square(),-11}");
             }
             else
             {
-                Console.WriteLine("Информация о эллипсе: ");
-                Console.WriteLine($"Первый радиус эллипса={radius1}");
-                Console.WriteLine($"Второй радиус эллипса={radius2}");
+                Console.WriteLine($"{"Эллипс",-19}{$"{radius1}, {radius2}",-11}{Perimetr(),-12}{Square(),-11}");
             }
-            Console.WriteLine($"Периметр={Perimetr()}");
-            Console.WriteLine($"Площадь={Square()}");
         }
     }
 }
