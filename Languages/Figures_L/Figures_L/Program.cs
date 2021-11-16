@@ -11,11 +11,11 @@ namespace Figures_L
         static void Main()
         {
             bool verification;
-            int InputData;
-            List<IFigure> figures = new List<IFigure>(10);
-            IFigure figure;
             do
             {
+                List<IFigure> figures = new List<IFigure>(10);
+                IFigure figure;
+                int InputData;
                 verification = true;
                 //Ввод данных пользователем  
                 Console.WriteLine("Вв-те номер фигуры, которая вам необходима");
@@ -53,31 +53,39 @@ namespace Figures_L
                     }
                     figures = figures.OrderBy(x => x.Perimetr()).ToList();
                     IEnumerator ie = figures.GetEnumerator();
-                    // Вывод отсортированного списка с помощью foreach
-                    Console.WriteLine("\nОтсортированный список (foreach)");
-                    if (InputData == 3)
-                    {
-                        Console.WriteLine($"{"Название",-19}{"Стороны",-11}{"Периметр",-12}{"Площадь",-11}{"Вид треугольника",-20}");
-                    }
-                    else
-                        Console.WriteLine($"{"Название",-19}{"Стороны",-11}{"Периметр",-12}{"Площадь",-11}");
-                    foreach (IFigure item in figures)
-                    {
-                        item.GetInfo();
-                    }
-                    // Вывод отсортированного списка с помощью while
-                    Console.WriteLine("\nОтсортированный список (while)");
-                    if(InputData==3)
-                    {
-                        Console.WriteLine($"{"Название",-19}{"Стороны",-11}{"Периметр",-12}{"Площадь",-11}{"Вид треугольника",-20}");
-                    }
-                    else
-                        Console.WriteLine($"{"Название",-19}{"Стороны",-11}{"Периметр",-12}{"Площадь",-11}");
-                    while (ie.MoveNext())
-                    {
-                        figure = (IFigure)ie.Current;
-                        figure.GetInfo();
-                    }
+
+
+
+                    bool all1 = figures.All(x => x.Perimetr() > 10);
+                    Console.WriteLine($"\nВсе периметры больше 10: {all1}");
+
+                    bool all2 = figures.All(x => x.Perimetr() > 1);
+                    Console.WriteLine($"Все периметры больше 1: {all2}");
+
+                    bool any1 = figures.Any(x => x.Perimetr() > 10);
+                    Console.WriteLine($"\nХотя бы один периметр больше 10: {any1}");
+
+                    bool any2 = figures.Any(x => x.Perimetr() > 10);
+                    Console.WriteLine($"Хотя бы один периметр больше 1: {any2}");
+
+                    double sum1 = figures.Sum(x => x.Perimetr());
+                    Console.WriteLine($"\nСумма всех периметров: {sum1}");
+
+                    double sum2 = figures.Sum(x => x.Square());
+                    Console.WriteLine($"Сумма всех площадей: {sum2}");
+
+                    double min1 = figures.Min(x => x.Perimetr());
+                    Console.WriteLine($"\nМинимальный периметр: {min1}");
+
+                    double min2 = figures.Min(x => x.Square());
+                    Console.WriteLine($"Минимальная площадь: {min2}");
+
+                    double max1 = figures.Max(x => x.Perimetr());
+                    Console.WriteLine($"\nМаксимальный периметр: {max1}");
+
+                    double max2 = figures.Max(x => x.Square());
+                    Console.WriteLine($"Максимальная площадь: {max2}");
+                    
                     Console.WriteLine("Хотите повторить?\n1-да;\nДругое число-нет");
                     var check = int.Parse(Console.ReadLine());
                     if (check == 1)

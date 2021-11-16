@@ -4,8 +4,8 @@ namespace Figures_L.Figures_L
 {
     public class Rectangle : IFigure
     {
-        public int side1 { get; set; }
-        public int side2 { get; set; }
+        public double side1 { get; set; }
+        public double side2 { get; set; }
         public Rectangle()
         {
             Random random = new Random();
@@ -14,12 +14,12 @@ namespace Figures_L.Figures_L
         }
         public double Perimetr()
         {
-            return (side1 + side2) * 2;
+            return Math.Round(((side1 + side2) * 2),4);
         }
 
         public double Square()
         {
-            return side1 * side2;
+            return Math.Round((side1 * side2),4);
         }
 
         public void GetInfo()

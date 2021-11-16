@@ -4,8 +4,8 @@ namespace Figures_L.Figures_L
 {
     public class Ellipse : IFigure
     {
-        public int radius1 { get; set; }
-        public int radius2 { get; set; }
+        public double radius1 { get; set; }
+        public double radius2 { get; set; }
         public Ellipse()
         {
             Random random = new Random();
@@ -17,18 +17,18 @@ namespace Figures_L.Figures_L
             //Проверка на равенство радиусов
             if (radius1 == radius2)
             {
-                return (2 * Math.PI * radius1);
+                return Math.Round((2 * Math.PI * radius1),4);
             }
             else
             {
-                return (2 * Math.PI * Math.Sqrt((radius1 * radius1 + radius2 * radius2) / 2));
+                return Math.Round((2 * Math.PI * Math.Sqrt((radius1 * radius1 + radius2 * radius2) / 2)),4);
             }
         }
 
         public double Square()
         {
             //Что у эллипса, что у круга формулы одинаковы
-            return (Math.PI * radius1 * radius2);
+            return Math.Round((Math.PI * radius1 * radius2),4);
         }
 
         public void GetInfo()

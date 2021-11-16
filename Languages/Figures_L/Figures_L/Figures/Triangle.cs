@@ -4,9 +4,9 @@ namespace Figures_L.Figures_L
 {
     public class Triangle : IFigure
     {
-        public int side1 { get; set; }
-        public int side2 { get; set; }
-        public int side3 { get; set; }
+        public double side1 { get; set; }
+        public double side2 { get; set; }
+        public double side3 { get; set; }
         public Triangle()
         {
             Random random = new Random();
@@ -17,17 +17,16 @@ namespace Figures_L.Figures_L
                 side3 = random.Next(1, 4);
             }
         }
-        //Метод, который проверяет, существует ли треугольник
         public double Perimetr()
         {
-            return (double)(side1 + side2 + side3);
+            return Math.Round((side1 + side2 + side3),4);
         }
         public double Square()
         {
             double Semiperimeter;
             double Area;
             Semiperimeter = (side1 + side2 + side3) / 2;
-            Area = Math.Round(Math.Sqrt(Semiperimeter * (Semiperimeter - side1) * (Semiperimeter - side2) * (Semiperimeter - side3)));
+            Area = Math.Round(Math.Sqrt(Semiperimeter * (Semiperimeter - side1) * (Semiperimeter - side2) * (Semiperimeter - side3)),4);
             return Area;
         }
         public string Verification()
