@@ -2,7 +2,8 @@
 {
     public interface IFigure
     {
-       public double Perimetr();
+        public string Name { get; set; }
+        public double Perimetr();
         //Абстрактный метод для подсчёта площади
         public double Square();
         //Вывод всей информации о фигуре

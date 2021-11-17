@@ -3,7 +3,6 @@ using Figures_L.Figures_L;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
 namespace Figures_L
 {
     class Program
@@ -39,6 +38,10 @@ namespace Figures_L
                         }
                         figures.Add(figure);
                     }
+
+                    IEnumerable<IFigure> nFigures = figures.Where(x => x.Name.StartsWith("П"));
+                    IEnumerable mFigures = figures.GroupBy(x => x.Name);
+
                     // Вывод первоначального списка
                     Console.WriteLine("Первоначальный список");
                     if (InputData == 3)
@@ -53,8 +56,6 @@ namespace Figures_L
                     }
                     figures = figures.OrderBy(x => x.Perimetr()).ToList();
                     IEnumerator ie = figures.GetEnumerator();
-
-
 
                     bool all1 = figures.All(x => x.Perimetr() > 10);
                     Console.WriteLine($"\nВсе периметры больше 10: {all1}");
@@ -85,7 +86,43 @@ namespace Figures_L
 
                     double max2 = figures.Max(x => x.Square());
                     Console.WriteLine($"Максимальная площадь: {max2}");
-                    
+
+                    Console.WriteLine();
+
+                    if (InputData == 1)
+                    {
+                        Console.WriteLine("Отсортированный список, если первая П");
+                        if (InputData == 3)
+                        {
+                            Console.WriteLine($"{"Название",-19}{"Стороны",-11}{"Периметр",-12}{"Площадь",-11}{"Вид треугольника",-20}");
+                        }
+                        else
+                            Console.WriteLine($"{"Название",-19}{"Стороны",-11}{"Периметр",-12}{"Площадь",-11}");
+                        foreach (IFigure f in nFigures)
+                        {
+                            f.GetInfo();
+                        }
+                    }
+
+                    Console.WriteLine();
+
+                    Console.WriteLine("Отсортированный список по группам");
+                    if (InputData == 3)
+                    {
+                        Console.WriteLine($"{"Название",-19}{"Стороны",-11}{"Периметр",-12}{"Площадь",-11}{"Вид треугольника",-20}");
+                    }
+                    else
+                        Console.WriteLine($"{"Название",-19}{"Стороны",-11}{"Периметр",-12}{"Площадь",-11}");
+                    foreach (IGrouping<string, IFigure> f in mFigures)
+                    {
+                        foreach (var t in f)
+                        {
+                            t.GetInfo();
+                        }
+                    }
+
+                    Console.WriteLine();
+
                     Console.WriteLine("Хотите повторить?\n1-да;\nДругое число-нет");
                     var check = int.Parse(Console.ReadLine());
                     if (check == 1)

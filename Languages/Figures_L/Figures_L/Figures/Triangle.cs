@@ -4,6 +4,7 @@ namespace Figures_L.Figures_L
 {
     public class Triangle : IFigure
     {
+        public string Name { get; set; }
         public double side1 { get; set; }
         public double side2 { get; set; }
         public double side3 { get; set; }
@@ -15,6 +16,18 @@ namespace Figures_L.Figures_L
                 side1 = random.Next(1, 4);
                 side2 = random.Next(1, 4);
                 side3 = random.Next(1, 4);
+            }
+            if (side1 == side2 && side2 == side3)
+            {
+                Name = "Треугольник";
+            }
+            else if (side1 == side2 || side2 == side3)
+            {
+                Name = "Треугольник";
+            }
+            else
+            {
+                Name = "Треугольник";
             }
         }
         public double Perimetr()
@@ -46,7 +59,7 @@ namespace Figures_L.Figures_L
         }
         public void GetInfo()
         {
-            Console.WriteLine($"{"Треугольник",-19}{$"{side1}, {side2}, {side3}",-11}{Perimetr(),-12}{Square(),-11}{Verification(),-20}");
+            Console.WriteLine($"{$"{Name}",-19}{$"{side1}, {side2}, {side3}",-11}{Perimetr(),-12}{Square(),-11}{Verification(),-20}");
         }
     }
 }

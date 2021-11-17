@@ -4,6 +4,7 @@ namespace Figures_L.Figures_L
 {
     public class Ellipse : IFigure
     {
+        public string Name { get; set; }
         public double radius1 { get; set; }
         public double radius2 { get; set; }
         public Ellipse()
@@ -11,6 +12,14 @@ namespace Figures_L.Figures_L
             Random random = new Random();
             radius1 = random.Next(1, 4);
             radius2 = random.Next(1, 4);
+            if (radius1 == radius2)
+            {
+                Name = "Окружность";
+            }
+            else
+            {
+                Name = "Эллипс";
+            }
         }
         public double Perimetr()
         {
@@ -35,11 +44,11 @@ namespace Figures_L.Figures_L
         {
             if (radius1 == radius2)
             {
-                Console.WriteLine($"{"Окружность",-19}{$"{radius1}, {radius2}",-11}{Perimetr(),-12}{Square(),-11}");
+                Console.WriteLine($"{$"{Name}",-19}{$"{radius1}, {radius2}",-11}{Perimetr(),-12}{Square(),-11}");
             }
             else
             {
-                Console.WriteLine($"{"Эллипс",-19}{$"{radius1}, {radius2}",-11}{Perimetr(),-12}{Square(),-11}");
+                Console.WriteLine($"{$"{Name}",-19}{$"{radius1}, {radius2}",-11}{Perimetr(),-12}{Square(),-11}");
             }
         }
     }
