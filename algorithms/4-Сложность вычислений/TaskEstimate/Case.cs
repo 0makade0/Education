@@ -2,5 +2,7 @@
 
 public enum Case
 {
-    
+    Normal,
+    Best,
+    Worst
 }
