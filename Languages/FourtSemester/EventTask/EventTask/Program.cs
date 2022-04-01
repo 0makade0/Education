@@ -1,4 +1,5 @@
 ﻿using System;
+using EventTask.Events;
 
 namespace EventTask
 {

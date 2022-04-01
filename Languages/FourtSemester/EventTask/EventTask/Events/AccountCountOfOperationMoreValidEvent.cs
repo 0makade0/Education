@@ -1,4 +1,4 @@
-namespace EventTask;
+namespace EventTask.Events;
 
 public class AccountCountOfOperationMoreValidEvent
 {

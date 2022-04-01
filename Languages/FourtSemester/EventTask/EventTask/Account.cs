@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using EventTask.Events;
 
 namespace EventTask
 {
@@ -79,14 +80,11 @@ namespace EventTask
             }
         }
 
-        public void QueueOperationClear()
-        {
-            operationQueue.Clear();
-        }
+        public void QueueOperationClear() => operationQueue.Clear();
 
         public void QueueCheckClear()
         {
-            if (operationQueue.Count==0)
+            if (operationQueue.Count == 0)
             {
                 Console.WriteLine();
                 NotifyQueueClear?.Invoke(this, new QueueClearEvent("Нет операций в очереди"));
