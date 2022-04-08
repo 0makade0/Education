@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Search")]
+[assembly: AssemblyTitle("SortArrayAlgorithm")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Search")]
+[assembly: AssemblyProduct("SortArrayAlgorithm")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1745BD4D-EDAE-4EB7-A5CF-108232B19469")]
+[assembly: Guid("C44CE9D1-ED3E-4B0B-B170-54FCBA5B6283")]
 
 // Version information for an assembly consists of the following four values:
 //

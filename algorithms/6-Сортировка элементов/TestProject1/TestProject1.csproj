@@ -4,12 +4,12 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{BCCB4652-0BBD-4512-B3E7-827B500E7639}</ProjectGuid>
+        <ProjectGuid>{67AA5405-EB29-4EDC-9928-56A8420F2391}</ProjectGuid>
         <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>FinderJumperTests</RootNamespace>
-        <AssemblyName>FinderJumperTests.Tests</AssemblyName>
+        <RootNamespace>TestProject1</RootNamespace>
+        <AssemblyName>TestProject1</AssemblyName>
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>
@@ -46,9 +46,9 @@
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\Search\Search.csproj">
-        <Project>{1745bd4d-edae-4eb7-a5cf-108232b19469}</Project>
-        <Name>Search</Name>
+      <ProjectReference Include="..\SortArrayAlgorithm\SortArrayAlgorithm.csproj">
+        <Project>{c44ce9d1-ed3e-4b0b-b170-54fcba5b6283}</Project>
+        <Name>SortArrayAlgorithm</Name>
       </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
