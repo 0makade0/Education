@@ -301,8 +301,6 @@ namespace WindowsFormsApp4
             {
                 case 1:
                     {
-                        if (firstElement == 0)
-                            throw new DivideByZeroException();
 
                         double EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
                         textBoxFindRoofs.Text = textBoxFindRoofs.Text + EquationOfTheFirstDegree.ToString() + Environment.NewLine;
@@ -310,9 +308,6 @@ namespace WindowsFormsApp4
                     }
                 case 2:
                     {
-                        if (firstElement == 0)
-                            throw new DivideByZeroException();
-
                         result = Calculation.EquationOfTheSecondDegree(secondElement, firstElement, freeElement);
 
                         foreach (var item in result)
@@ -325,9 +320,6 @@ namespace WindowsFormsApp4
                     }
                 case 3:
                     {
-                        if (firstElement == 0)
-                            throw new DivideByZeroException();
-
                         result = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
 
                         foreach (var item in result)
@@ -338,9 +330,6 @@ namespace WindowsFormsApp4
                     }
                 case 4:
                     {
-                        if (firstElement == 0)
-                            throw new DivideByZeroException();
-
                         result = Calculation.EquationOfTheFourthDegree(fourthElement, thirdElement, secondElement, firstElement, freeElement);
 
                         foreach (var item in result)
@@ -351,9 +340,6 @@ namespace WindowsFormsApp4
                     }
                 case 5:
                     {
-                        if (firstElement == 0)
-                            throw new DivideByZeroException();
-
                         result = Calculation.EquationOfTheFifthDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
 
                         foreach (var item in result)
@@ -364,9 +350,6 @@ namespace WindowsFormsApp4
                     }
                 default:
                     {
-                        if (firstElement == 0)
-                            throw new DivideByZeroException();
-
                         double EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
 
                         textBoxFindRoofs.Text = textBoxFindRoofs.Text + EquationOfTheFirstDegree.ToString() + Environment.NewLine;
