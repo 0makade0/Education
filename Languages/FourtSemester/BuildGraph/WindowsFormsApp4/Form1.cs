@@ -404,13 +404,13 @@ namespace WindowsFormsApp4
 
                 if (currentPosition > previousPosition)
                 {
-                    startCoordinat -= 5;
-                    endCoordinat -= 5;
+                    startCoordinat -= 0.5;
+                    endCoordinat -= 0.5;
                 }
                 else
                 {
-                    startCoordinat += 5;
-                    endCoordinat += 5;
+                    startCoordinat += 0.5;
+                    endCoordinat += 0.5;
                 }
 
                 previousPosition = (Cursor.Position.X - this.Left);
