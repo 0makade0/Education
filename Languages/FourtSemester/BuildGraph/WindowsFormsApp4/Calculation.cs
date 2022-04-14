@@ -1,4 +1,5 @@
-﻿using System;
+﻿        using System;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace WindowsFormsApp4
@@ -25,75 +26,53 @@ namespace WindowsFormsApp4
             return result;
         }
 
-        public static double[] EquationOfTheThirdDegree(double a, double b, double c, double d)
+        public static IEnumerable<Complex> EquationOfTheThirdDegree(double a0, double a1, double a2, double a3)
         {
-            double[] result = new double[3];
-
-            int tip;
-
-            double eps = 1E-14;
-            double p = (3 * a * c - b * b) / (3 * a * a);
-            double q = (2 * b * b * b - 9 * a * b * c + 27 * a * a * d) / (27 * a * a * a);
-            double det = q * q / 4 + p * p * p / 27;
-            if (Math.Abs(det) < eps)
-                det = 0;
-            if (det > 0)
+            double a = a1 / a0, b = a2 / a0, c = a3 / a0;
+            double q = (a * a - 3 * b) / 9;
+            double r = (2 * a * a * a - 9 * a * b + 27 * c) / 54;
+            double s = q * q * q - r * r;
+            double arg;
+            if (s > 0)
             {
-                tip = 1; // один вещественный, два комплексных корня
-                double u = -q / 2 + Math.Sqrt(det);
-                u = Math.Exp(Math.Log(u) / 3);
-                double yy = u - p / (3 * u);
-                result[0] = yy - b / (3 * a); // первый корень
-                result[1] = -(u - p / (3 * u)) / 2 - b / (3 * a);
-                result[2] = Math.Sqrt(3) / 2 * (u + p / (3 * u));
+                arg = Math.Acos(r / Math.Sqrt(Math.Pow(q, 3))) / 3;
+                double x1 = -2 * Math.Sqrt(q) * Math.Cos(arg) - a / 3;
+                double x2 = -2 * Math.Sqrt(q) * Math.Cos(arg + 2 * Math.PI / 3) - a / 3;
+                double x3 = -2 * Math.Sqrt(q) * Math.Cos(arg - 2 * Math.PI / 3) - a / 3;
+                return new List<Complex>
+                {
+                    new Complex(x1, 0), new Complex(x2, 0), new Complex(x3, 0)
+                };
+            }
+            else
+                if (s < 0)
+            {
+                double t = Math.Abs(r) / Math.Sqrt(Math.Pow(q, 3));
+                arg = Math.Log(t + Math.Sqrt(t * t + 1)) / 3;
+                double x1 = -2 * Math.Sign(r) * Math.Sqrt(Math.Abs(q)) * (Math.Exp(arg) + Math.Exp(-arg)) / 2 - a / 3;
+                Complex x2 = new Complex(Math.Sign(r) * Math.Sqrt(Math.Abs(q)) * (Math.Exp(arg) + Math.Exp(-arg)) / 2 - a / 3, Math.Sqrt(3 * Math.Abs(q)) * (Math.Exp(arg) - Math.Exp(-arg)) / 2);
+                Complex x3 = new Complex(Math.Sign(r) * Math.Sqrt(Math.Abs(q)) * (Math.Exp(arg) + Math.Exp(-arg)) / 2 - a / 3, -Math.Sqrt(3 * Math.Abs(q)) * (Math.Exp(arg) - Math.Exp(-arg)) / 2);
+                return new List<Complex>
+                {
+                    new Complex(x1, 0), x2, x3
+                };
             }
             else
             {
-                if (det < 0)
+                double x1 = -2 * Math.Pow(r, 1 / 3) - a / 3;
+                double x2 = Math.Pow(r, 1 / 3) - a / 3;
+                double x3 = x2;
+                return new List<Complex>
                 {
-                    tip = 2; // три вещественных корня
-                    double fi;
-                    if (Math.Abs(q) < eps) // q=0
-                        fi = Math.PI / 2;
-                    else
-                    {
-                        if (q < 0) // q<0
-                            fi = Math.Atan(Math.Sqrt(-det) / (-q / 2));
-                        else // q<0
-                            fi = Math.Atan(Math.Sqrt(-det) / (-q / 2)) + Math.PI;
-                    }
-                    double r = 2 * Math.Sqrt(-p / 3);
-                    result[0] = r * Math.Cos(fi / 3) - b / (3 * a);
-                    result[1] = r * Math.Cos((fi + 2 * Math.PI) / 3) - b / (3 * a);
-                    result[2] = r * Math.Cos((fi + 4 * Math.PI) / 3) - b / (3 * a);
-                }
-                else // det=0
-                {
-                    if (Math.Abs(q) < eps)
-                    {
-                        tip = 4; // 3-х кратный 
-                        result[0] = -b / (3 * a); // 3-х кратный 
-                        result[1] = -b / (3 * a);
-                        result[2] = -b / (3 * a);
-                    }
-                    else
-                    {
-                        tip = 3; // один и два кратных
-                        double u = Math.Exp(Math.Log(Math.Abs(q) / 2) / 3);
-                        if (q < 0)
-                            u = -u;
-                        result[0] = -2 * u - b / (3 * a);
-                        result[1] = u - b / (3 * a);
-                        result[2] = u - b / (3 * a);
-                    }
-                }
+                    new Complex(x1, 0), new Complex(x2, 0), new Complex(x3, 0)
+                };
             }
-            return result;
         }
+       
 
-        public static double[] EquationOfTheFourthDegree(double a, double b, double c, double d, double e)
+        public static List<string> EquationOfTheFourthDegree(double a, double b, double c, double d, double e)
         {
-            double[] result = new double[4];
+            List<string> result = new List<string>();
 
             b = b / a;
             c = c / a;
@@ -192,16 +171,16 @@ namespace WindowsFormsApp4
                 pp4 = y4 - b / 4;
             }
 
-            result[0] = Math.Round(pp1.Real, 5) + Math.Round(pp1.Imaginary, 5);
-            result[1] = Math.Round(pp2.Real, 5) + Math.Round(pp2.Imaginary, 5);
-            result[2] = Math.Round(pp3.Real, 5) + Math.Round(pp3.Imaginary, 5);
-            result[3] = Math.Round(pp4.Real, 5) + Math.Round(pp4.Imaginary, 5);
+            result.Add(Convert.ToString(Math.Round(pp1.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp1.Imaginary, 5)) + ")");
+            result.Add(Convert.ToString(Math.Round(pp2.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp2.Imaginary, 5)) + ")");
+            result.Add(Convert.ToString(Math.Round(pp3.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp3.Imaginary, 5)) + ")");
+            result.Add(Convert.ToString(Math.Round(pp4.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp4.Imaginary, 5)) + ")");
             return result;
         }
 
-        public static double[] EquationOfTheFifthDegree(double a, double b, double c, double d, double e, double f)
+        public static List<string> EquationOfTheFifthDegree(double a, double b, double c, double d, double e, double f)
         {
-            double[] result = new double[5];
+            List<string> result = new List<string>();
 
             b = b / a;
             c = c / a;
@@ -313,13 +292,13 @@ namespace WindowsFormsApp4
                 pp2 = y2 - b / 4;
                 pp3 = y3 - b / 4;
                 pp4 = y4 - b / 4;
+                pp5 = y5 - b / 4;
             }
-
-            result[0] = Math.Round(pp1.Real, 5) + Math.Round(pp1.Imaginary, 5);
-            result[1] = Math.Round(pp2.Real, 5) + Math.Round(pp2.Imaginary, 5);
-            result[2] = Math.Round(pp3.Real, 5) + Math.Round(pp3.Imaginary, 5);
-            result[3] = Math.Round(pp4.Real, 5) + Math.Round(pp4.Imaginary, 5);
-            result[4] = Math.Round(pp5.Real, 5) + Math.Round(pp5.Imaginary, 5);
+            result.Add(Convert.ToString(Math.Round(pp1.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp1.Imaginary, 5)) + ")");
+            result.Add(Convert.ToString(Math.Round(pp2.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp2.Imaginary, 5)) + ")");
+            result.Add(Convert.ToString(Math.Round(pp3.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp3.Imaginary, 5)) + ")");
+            result.Add(Convert.ToString(Math.Round(pp4.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp4.Imaginary, 5)) + ")");
+            result.Add(Convert.ToString(Math.Round(pp5.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp5.Imaginary, 5)) + ")");
             return result;
         }
     }

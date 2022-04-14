@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace WindowsFormsApp4
 {
@@ -12,7 +13,24 @@ namespace WindowsFormsApp4
         private int currentPosition = 0;
         private double startCoordinat = -10;
         private double endCoordinat = 10;
-        
+
+        private static string GetString(Complex complex)
+        {
+            if (complex.Imaginary == 0)
+                return complex.Real.ToString();
+            else
+                return complex.Real.ToString() + " + " + complex.Imaginary.ToString() + "i";
+        }
+
+        private static bool GetNumVerification(Complex complex)
+        {
+            if (complex.Real + complex.Imaginary == complex.Real)
+                return true;
+            else
+                return false;
+        }
+
+        private static double GetNum(Complex complex) => complex.Real + complex.Imaginary;
 
         //Проверка корней уравнения
         private void buttonVerification_Click(object sender, EventArgs e)
@@ -20,6 +38,8 @@ namespace WindowsFormsApp4
             double[] result = new double[condition];
 
             double eq;
+
+            string stringCondition = "Проверка верна";
 
             switch (condition)
             {
@@ -31,7 +51,7 @@ namespace WindowsFormsApp4
                         if(eq==0)
                         {
                             MessageBox.Show(
-                                "Проверка верна",
+                                stringCondition,
                                 "Проверка корней уравнения",
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.None,
@@ -52,7 +72,6 @@ namespace WindowsFormsApp4
                     }
                 case 2:
                     {
-                        string stringCondition = "Проверка верна";
                         result = Calculation.EquationOfTheSecondDegree(secondElement, firstElement, freeElement);
                         for (int i = 0; i < result.Length; i++)
                         {
@@ -73,16 +92,22 @@ namespace WindowsFormsApp4
                     }
                 case 3:
                     {
-                        string stringCondition = "Проверка верна";
 
-                        result = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
+                        var result1 = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
 
-                        for (int i = 0; i < result.Length; i++)
+                        foreach (var item in result1)
                         {
-                            eq = Math.Pow(result[i], 3) * thirdElement+ Math.Pow(result[i], 2) * secondElement + result[i] * firstElement + freeElement;
-                            if (eq != 0)
+                            if (GetNumVerification(item)==true)
                             {
-                                stringCondition = $"Проверка неверна: {eq}";
+                                eq = Math.Pow(GetNum(item), 3) * thirdElement + Math.Pow(GetNum(item), 2) * secondElement + GetNum(item) * firstElement + freeElement;
+                                if (eq > 1)
+                                {
+                                    stringCondition = $"Проверка верна: {eq}";
+                                }
+                                else
+                                {
+                                    stringCondition = "Проверка корней с комплексными числами находится в разработке";
+                                }
                             }
                         }
                         MessageBox.Show(
@@ -96,9 +121,8 @@ namespace WindowsFormsApp4
                     }
                 case 4:
                     {
-                        string stringCondition = "Проверка верна";
 
-                        result = Calculation.EquationOfTheFourthDegree(fourthElement, thirdElement, secondElement, firstElement, freeElement);
+                        List<string> res = Calculation.EquationOfTheFourthDegree(fourthElement, thirdElement, secondElement, firstElement, freeElement);
 
                         for (int i = 0; i < result.Length; i++)
                         {
@@ -119,9 +143,8 @@ namespace WindowsFormsApp4
                     }
                 case 5:
                     {
-                        string stringCondition = "Проверка верна";
 
-                        result = Calculation.EquationOfTheFifthDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
+                        List<string> res = Calculation.EquationOfTheFifthDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
 
 
                         for (int i = 0; i < result.Length; i++)
@@ -174,7 +197,6 @@ namespace WindowsFormsApp4
         public Form1()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.MouseClick += new MouseEventHandler(chart1_MouseClick);
             InitializeComponent();
         }
 
@@ -280,6 +302,7 @@ namespace WindowsFormsApp4
             }
         }
 
+
         //Нахождение корней уравнения
         private void buttonFindRoofs_Click(object sender, EventArgs e)
         {
@@ -320,19 +343,19 @@ namespace WindowsFormsApp4
                     }
                 case 3:
                     {
-                        result = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
+                        var result1 = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
 
-                        foreach (var item in result)
+                        foreach (var item in result1)
                         {
-                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + item.ToString() + Environment.NewLine;
+                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                         }
                         break;
                     }
                 case 4:
                     {
-                        result = Calculation.EquationOfTheFourthDegree(fourthElement, thirdElement, secondElement, firstElement, freeElement);
+                       List<string> res= Calculation.EquationOfTheFourthDegree(fourthElement, thirdElement, secondElement, firstElement, freeElement);
 
-                        foreach (var item in result)
+                        foreach (var item in res)   
                         {
                             textBoxFindRoofs.Text = textBoxFindRoofs.Text + item.ToString() + Environment.NewLine;
                         }
@@ -340,9 +363,9 @@ namespace WindowsFormsApp4
                     }
                 case 5:
                     {
-                        result = Calculation.EquationOfTheFifthDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
+                        List<string> res = Calculation.EquationOfTheFifthDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
 
-                        foreach (var item in result)
+                        foreach (var item in res)
                         {
                             textBoxFindRoofs.Text = textBoxFindRoofs.Text + item.ToString() + Environment.NewLine;
                         }
@@ -379,7 +402,7 @@ namespace WindowsFormsApp4
             BuildGraph();
         }
 
-        private void chart1_MouseClick(object sender, MouseEventArgs e)
+        private void chart1_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -400,7 +423,6 @@ namespace WindowsFormsApp4
                 BuildGraph();
             }
         }
-
         private void BuildGraph()
         {
             chart1.Series[0].Points.Clear();

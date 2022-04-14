@@ -51,6 +51,10 @@ namespace WindowsFormsApp4
             this.buttonBuildGraph = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.ClearButton = new System.Windows.Forms.Button();
+            this.textBoxUpperSide = new System.Windows.Forms.TextBox();
+            this.textBoxLowerSide = new System.Windows.Forms.TextBox();
+            this.textBoxLeftSide = new System.Windows.Forms.TextBox();
+            this.textBoxRightSide = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -177,7 +181,7 @@ namespace WindowsFormsApp4
             // 
             // buttonFindRoofs
             // 
-            this.buttonFindRoofs.Location = new System.Drawing.Point(372, 40);
+            this.buttonFindRoofs.Location = new System.Drawing.Point(451, 40);
             this.buttonFindRoofs.Name = "buttonFindRoofs";
             this.buttonFindRoofs.Size = new System.Drawing.Size(122, 23);
             this.buttonFindRoofs.TabIndex = 15;
@@ -187,7 +191,7 @@ namespace WindowsFormsApp4
             // 
             // textBoxFindRoofs
             // 
-            this.textBoxFindRoofs.Location = new System.Drawing.Point(372, 69);
+            this.textBoxFindRoofs.Location = new System.Drawing.Point(451, 69);
             this.textBoxFindRoofs.Multiline = true;
             this.textBoxFindRoofs.Name = "textBoxFindRoofs";
             this.textBoxFindRoofs.Size = new System.Drawing.Size(122, 161);
@@ -195,7 +199,7 @@ namespace WindowsFormsApp4
             // 
             // buttonVerification
             // 
-            this.buttonVerification.Location = new System.Drawing.Point(372, 236);
+            this.buttonVerification.Location = new System.Drawing.Point(451, 236);
             this.buttonVerification.Name = "buttonVerification";
             this.buttonVerification.Size = new System.Drawing.Size(122, 23);
             this.buttonVerification.TabIndex = 17;
@@ -207,7 +211,7 @@ namespace WindowsFormsApp4
             // 
             this.buttonBuildGraph.Location = new System.Drawing.Point(38, 291);
             this.buttonBuildGraph.Name = "buttonBuildGraph";
-            this.buttonBuildGraph.Size = new System.Drawing.Size(306, 23);
+            this.buttonBuildGraph.Size = new System.Drawing.Size(407, 23);
             this.buttonBuildGraph.TabIndex = 23;
             this.buttonBuildGraph.Text = "Построить график";
             this.buttonBuildGraph.UseVisualStyleBackColor = true;
@@ -217,7 +221,7 @@ namespace WindowsFormsApp4
             // 
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.Location = new System.Drawing.Point(6, 69);
+            this.chart1.Location = new System.Drawing.Point(38, 69);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             series1.BorderWidth = 3;
@@ -225,14 +229,14 @@ namespace WindowsFormsApp4
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(338, 190);
+            this.chart1.Size = new System.Drawing.Size(407, 190);
             this.chart1.TabIndex = 24;
             this.chart1.Text = "chart1";
-            this.chart1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseClick);
+            this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             // 
             // ClearButton
             // 
-            this.ClearButton.Location = new System.Drawing.Point(372, 291);
+            this.ClearButton.Location = new System.Drawing.Point(451, 291);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(122, 23);
             this.ClearButton.TabIndex = 25;
@@ -240,11 +244,43 @@ namespace WindowsFormsApp4
             this.ClearButton.UseVisualStyleBackColor = true;
             this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
+            // textBoxUpperSide
+            // 
+            this.textBoxUpperSide.Location = new System.Drawing.Point(6, 69);
+            this.textBoxUpperSide.Name = "textBoxUpperSide";
+            this.textBoxUpperSide.Size = new System.Drawing.Size(23, 20);
+            this.textBoxUpperSide.TabIndex = 26;
+            // 
+            // textBoxLowerSide
+            // 
+            this.textBoxLowerSide.Location = new System.Drawing.Point(6, 239);
+            this.textBoxLowerSide.Name = "textBoxLowerSide";
+            this.textBoxLowerSide.Size = new System.Drawing.Size(23, 20);
+            this.textBoxLowerSide.TabIndex = 27;
+            // 
+            // textBoxLeftSide
+            // 
+            this.textBoxLeftSide.Location = new System.Drawing.Point(38, 265);
+            this.textBoxLeftSide.Name = "textBoxLeftSide";
+            this.textBoxLeftSide.Size = new System.Drawing.Size(23, 20);
+            this.textBoxLeftSide.TabIndex = 28;
+            // 
+            // textBoxRightSide
+            // 
+            this.textBoxRightSide.Location = new System.Drawing.Point(422, 265);
+            this.textBoxRightSide.Name = "textBoxRightSide";
+            this.textBoxRightSide.Size = new System.Drawing.Size(23, 20);
+            this.textBoxRightSide.TabIndex = 29;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(506, 333);
+            this.ClientSize = new System.Drawing.Size(585, 328);
+            this.Controls.Add(this.textBoxRightSide);
+            this.Controls.Add(this.textBoxLeftSide);
+            this.Controls.Add(this.textBoxLowerSide);
+            this.Controls.Add(this.textBoxUpperSide);
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.buttonBuildGraph);
@@ -296,6 +332,10 @@ namespace WindowsFormsApp4
         private System.Windows.Forms.Button buttonBuildGraph;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Button ClearButton;
+        private System.Windows.Forms.TextBox textBoxUpperSide;
+        private System.Windows.Forms.TextBox textBoxLowerSide;
+        private System.Windows.Forms.TextBox textBoxLeftSide;
+        private System.Windows.Forms.TextBox textBoxRightSide;
     }
 }
 
