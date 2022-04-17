@@ -1,4 +1,4 @@
-﻿        using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
 
@@ -8,71 +8,59 @@ namespace WindowsFormsApp4
     {
         public static double Discriminant(double a, double b, double c) => Math.Pow(b, 2) - 4 * a * c;
 
-        public static double[] EquationOfTheSecondDegree(double a, double b, double c)
+        public static Complex[] EquationOfTheSecondDegree(double a, double b, double c)
         {
-            double[] result = new double[2];
-            if (b == 0)
-            {
-                result[0] = -Math.Sqrt((-1 * c) / a);
-                result[1] = Math.Sqrt((-1 * c) / a);
-            }
-            else
-            {
-                double discr = Discriminant(a, b, c);
-                result[0] = (-b - Math.Sqrt(discr)) / (2 * a);
-                result[1] = (-b + Math.Sqrt(discr)) / (2 * a);
-            }
+            if (a == 0)
+                throw new DivideByZeroException();
 
-            return result;
+            double discriminant = Math.Pow(b, 2) - 4 * a * c; // Дискриминант
+
+            if (discriminant < 0) // Нет действительных корней
+                return new Complex[0];
+
+            return new Complex[2] { // 2 корня
+                (-b + Math.Sqrt(discriminant)) / (2 * a),
+                (-b - Math.Sqrt(discriminant)) / (2 * a) };
         }
 
-        public static IEnumerable<Complex> EquationOfTheThirdDegree(double a0, double a1, double a2, double a3)
+        public static IEnumerable<Complex> EquationOfTheThirdDegree(double a, double b, double c, double d)
         {
-            double a = a1 / a0, b = a2 / a0, c = a3 / a0;
-            double q = (a * a - 3 * b) / 9;
-            double r = (2 * a * a * a - 9 * a * b + 27 * c) / 54;
-            double s = q * q * q - r * r;
-            double arg;
-            if (s > 0)
-            {
-                arg = Math.Acos(r / Math.Sqrt(Math.Pow(q, 3))) / 3;
-                double x1 = -2 * Math.Sqrt(q) * Math.Cos(arg) - a / 3;
-                double x2 = -2 * Math.Sqrt(q) * Math.Cos(arg + 2 * Math.PI / 3) - a / 3;
-                double x3 = -2 * Math.Sqrt(q) * Math.Cos(arg - 2 * Math.PI / 3) - a / 3;
-                return new List<Complex>
-                {
-                    new Complex(x1, 0), new Complex(x2, 0), new Complex(x3, 0)
-                };
-            }
-            else
-                if (s < 0)
-            {
-                double t = Math.Abs(r) / Math.Sqrt(Math.Pow(q, 3));
-                arg = Math.Log(t + Math.Sqrt(t * t + 1)) / 3;
-                double x1 = -2 * Math.Sign(r) * Math.Sqrt(Math.Abs(q)) * (Math.Exp(arg) + Math.Exp(-arg)) / 2 - a / 3;
-                Complex x2 = new Complex(Math.Sign(r) * Math.Sqrt(Math.Abs(q)) * (Math.Exp(arg) + Math.Exp(-arg)) / 2 - a / 3, Math.Sqrt(3 * Math.Abs(q)) * (Math.Exp(arg) - Math.Exp(-arg)) / 2);
-                Complex x3 = new Complex(Math.Sign(r) * Math.Sqrt(Math.Abs(q)) * (Math.Exp(arg) + Math.Exp(-arg)) / 2 - a / 3, -Math.Sqrt(3 * Math.Abs(q)) * (Math.Exp(arg) - Math.Exp(-arg)) / 2);
-                return new List<Complex>
-                {
-                    new Complex(x1, 0), x2, x3
-                };
-            }
-            else
-            {
-                double x1 = -2 * Math.Pow(r, 1 / 3) - a / 3;
-                double x2 = Math.Pow(r, 1 / 3) - a / 3;
-                double x3 = x2;
-                return new List<Complex>
-                {
-                    new Complex(x1, 0), new Complex(x2, 0), new Complex(x3, 0)
-                };
-            }
-        }
-       
+            if (a == 0)
+                throw new DivideByZeroException();
+            b = b / a;
+            c = c / a;
+            d = d / a;
+            var q = (Math.Pow(b, 2) - 3 * c) / 9;
+            var r = (2 * Math.Pow(b, 3) - 9 * b * c + 27 * d) / 54;
 
-        public static List<string> EquationOfTheFourthDegree(double a, double b, double c, double d, double e)
+            if (Math.Pow(r, 2) < Math.Pow(q, 3))
+            {
+                var t = Math.Acos(r / Math.Sqrt(Math.Pow(q, 3))) / 3;
+                var x1 = -2 * Math.Sqrt(q) * Math.Cos(t) - b / 3;
+                var x2 = -2 * Math.Sqrt(q) * Math.Cos(t + (2 * Math.PI / 3)) - b / 3;
+                var x3 = -2 * Math.Sqrt(q) * Math.Cos(t - (2 * Math.PI / 3)) - b / 3;
+                return new Complex[3] { x1, x2, x3 };
+            }
+            else
+            {
+                var A1 = -Math.Sign(r) * Math.Pow(Math.Abs(r) + Math.Sqrt(Math.Pow(r, 2) - Math.Pow(q, 3)), (1.0 / 3.0));
+                var B1 = (A1 == 0) ? 0.0 : q / A1;
+
+                var x1 = (A1 + B1) - b / 3;
+                var x2 = -(A1 + B1) / 2 - (b / 3) + (Complex.ImaginaryOne * Math.Sqrt(3) * (A1 - B1) / 2);
+                var x3 = -(A1 + B1) / 2 - (b / 3) - (Complex.ImaginaryOne * Math.Sqrt(3) * (A1 - B1) / 2);
+
+                if (A1 == B1)
+                {
+                    x2 = -A1 - b / 3;
+                    return new Complex[2] { x1, x2 };
+                }
+                return new Complex[3] { x1, x2, x3 };
+            }
+        } 
+
+        public static IEnumerable<Complex> EquationOfTheFourthDegree(double a, double b, double c, double d, double e)
         {
-            List<string> result = new List<string>();
 
             b = b / a;
             c = c / a;
@@ -171,16 +159,11 @@ namespace WindowsFormsApp4
                 pp4 = y4 - b / 4;
             }
 
-            result.Add(Convert.ToString(Math.Round(pp1.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp1.Imaginary, 5)) + ")");
-            result.Add(Convert.ToString(Math.Round(pp2.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp2.Imaginary, 5)) + ")");
-            result.Add(Convert.ToString(Math.Round(pp3.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp3.Imaginary, 5)) + ")");
-            result.Add(Convert.ToString(Math.Round(pp4.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp4.Imaginary, 5)) + ")");
-            return result;
-        }
+        return new Complex[4] { pp1, pp2, pp3, pp4 };
+    }
 
-        public static List<string> EquationOfTheFifthDegree(double a, double b, double c, double d, double e, double f)
+        public static IEnumerable<Complex> EquationOfTheFifthDegree(double a, double b, double c, double d, double e, double f)
         {
-            List<string> result = new List<string>();
 
             b = b / a;
             c = c / a;
@@ -294,12 +277,8 @@ namespace WindowsFormsApp4
                 pp4 = y4 - b / 4;
                 pp5 = y5 - b / 4;
             }
-            result.Add(Convert.ToString(Math.Round(pp1.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp1.Imaginary, 5)) + ")");
-            result.Add(Convert.ToString(Math.Round(pp2.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp2.Imaginary, 5)) + ")");
-            result.Add(Convert.ToString(Math.Round(pp3.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp3.Imaginary, 5)) + ")");
-            result.Add(Convert.ToString(Math.Round(pp4.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp4.Imaginary, 5)) + ")");
-            result.Add(Convert.ToString(Math.Round(pp5.Real, 5)) + "+i(" + Convert.ToString(Math.Round(pp5.Imaginary, 5)) + ")");
-            return result;
-        }
+
+        return new Complex[5] { pp1, pp2, pp3, pp4,pp5 };
     }
+}
 }

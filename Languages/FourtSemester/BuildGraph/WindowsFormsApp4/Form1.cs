@@ -11,8 +11,8 @@ namespace WindowsFormsApp4
         private double freeElement, firstElement, secondElement, thirdElement, fourthElement, fifthElement;
         private int previousPosition= 0;
         private int currentPosition = 0;
-        private double startCoordinat = -10;
-        private double endCoordinat = 10;
+        private static double startCoordinat = -10;
+        private static double endCoordinat = 10;
 
         private static string GetString(Complex complex)
         {
@@ -22,173 +22,93 @@ namespace WindowsFormsApp4
                 return complex.Real.ToString() + " + " + complex.Imaginary.ToString() + "i";
         }
 
-        private static bool GetNumVerification(Complex complex)
-        {
-            if (complex.Real + complex.Imaginary == complex.Real)
-                return true;
-            else
-                return false;
-        }
-
-        private static double GetNum(Complex complex) => complex.Real + complex.Imaginary;
-
         //Проверка корней уравнения
         private void buttonVerification_Click(object sender, EventArgs e)
         {
-            double[] result = new double[condition];
-
+            IEnumerable<Complex> result;
             double eq;
-
             string stringCondition = "Проверка верна";
-
+            string number = "";
+            void MassageBoxWrong(string text1, string text2)
+            {
+                MessageBox.Show(
+                    text1 + text2, "Проверка корней уравнения",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.None,
+                    MessageBoxDefaultButton.Button1,
+                    MessageBoxOptions.DefaultDesktopOnly);
+            }
             switch (condition)
             {
                 case 1:
                     {
                         double EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
                         eq = EquationOfTheFirstDegree * firstElement + freeElement;
-                        Console.WriteLine(eq);
-                        if(eq==0)
+                        if (eq != 0)
                         {
-                            MessageBox.Show(
-                                stringCondition,
-                                "Проверка корней уравнения",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.None,
-                                MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.DefaultDesktopOnly);
+                            stringCondition = "Проверка неверна: ";
                         }
-                        else
-                        {
-                            MessageBox.Show(
-                               $"Проверка не верна:{eq}",
-                               "Проверка корней уравнения",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.Error,
-                               MessageBoxDefaultButton.Button1,
-                               MessageBoxOptions.DefaultDesktopOnly);
-                        }
+                        MassageBoxWrong(stringCondition, "");
                         break;
                     }
                 case 2:
                     {
                         result = Calculation.EquationOfTheSecondDegree(secondElement, firstElement, freeElement);
-                        for (int i = 0; i < result.Length; i++)
+                        foreach (var item in result)
                         {
-                            eq = Math.Pow(result[i],2)*secondElement+result[i] * firstElement + freeElement;
-                            if(eq!=0)
+                            eq = (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement + item.Real * firstElement + freeElement;
+                            if (eq != 0)
                             {
-                                stringCondition = $"Проверка неверна: {eq}";
+                                stringCondition = "Проверка неверна: ";
+                                number += eq.ToString() + "\n";
                             }
                         }
-                        MessageBox.Show(
-                               stringCondition,
-                               "Проверка корней уравнения",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.None,
-                               MessageBoxDefaultButton.Button1,
-                               MessageBoxOptions.DefaultDesktopOnly);
+                        MassageBoxWrong(stringCondition, number);
                         break;
                     }
                 case 3:
                     {
-
-                        var result1 = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
-
-                        foreach (var item in result1)
+                        result = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
+                        foreach (var item in result)
                         {
-                            if (GetNumVerification(item)==true)
+                            eq = Math.Pow(item.Real, 3) * thirdElement + (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement + item.Real * firstElement + freeElement;
+                            if (eq != 0)
                             {
-                                eq = Math.Pow(GetNum(item), 3) * thirdElement + Math.Pow(GetNum(item), 2) * secondElement + GetNum(item) * firstElement + freeElement;
-                                if (eq > 1)
-                                {
-                                    stringCondition = $"Проверка верна: {eq}";
-                                }
-                                else
-                                {
-                                    stringCondition = "Проверка корней с комплексными числами находится в разработке";
-                                }
+                                stringCondition = "Проверка неверна: ";
+                                number += eq.ToString() + "\n";
                             }
                         }
-                        MessageBox.Show(
-                               stringCondition,
-                               "Проверка корней уравнения",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.None,
-                               MessageBoxDefaultButton.Button1,
-                               MessageBoxOptions.DefaultDesktopOnly);
+                        MassageBoxWrong(stringCondition, number);
                         break;
                     }
                 case 4:
                     {
-
-                        List<string> res = Calculation.EquationOfTheFourthDegree(fourthElement, thirdElement, secondElement, firstElement, freeElement);
-
-                        for (int i = 0; i < result.Length; i++)
+                        result = Calculation.EquationOfTheFourthDegree(fourthElement,thirdElement, secondElement, firstElement, freeElement);
+                        foreach (var item in result)
                         {
-                            eq = Math.Pow(result[i], 4) * fourthElement+ Math.Pow(result[i], 3) * thirdElement + Math.Pow(result[i], 2) * secondElement + result[i] * firstElement + freeElement;
+                            eq = Math.Pow(item.Real, 4) * fourthElement + Math.Pow(item.Real, 3) * thirdElement + (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement + item.Real * firstElement + freeElement;
                             if (eq != 0)
                             {
-                                stringCondition = $"Проверка неверна: {eq}";
+                                stringCondition = "Проверка неверна: ";
+                                number += eq.ToString() + "\n";
                             }
                         }
-                        MessageBox.Show(
-                               stringCondition,
-                               "Проверка корней уравнения",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.None,
-                               MessageBoxDefaultButton.Button1,
-                               MessageBoxOptions.DefaultDesktopOnly);
+                        MassageBoxWrong(stringCondition, number);
                         break;
                     }
                 case 5:
                     {
-
-                        List<string> res = Calculation.EquationOfTheFifthDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
-
-
-                        for (int i = 0; i < result.Length; i++)
+                        result = Calculation.EquationOfTheFifthDegree(fifthElement,fourthElement,thirdElement, secondElement, firstElement, freeElement);
+                        foreach (var item in result)
                         {
-                            eq = Math.Pow(result[i], 4) *fifthElement + Math.Pow(result[i], 4) * fourthElement + Math.Pow(result[i], 3) * thirdElement + Math.Pow(result[i], 2) * secondElement + result[i] * firstElement + freeElement;
+                            eq = Math.Pow(item.Real, 5) * fifthElement + Math.Pow(item.Real, 4) * fourthElement + Math.Pow(item.Real, 3) * thirdElement + (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement + item.Real * firstElement + freeElement;
                             if (eq != 0)
                             {
-                                stringCondition = $"Проверка неверна: {eq}";
+                                stringCondition = "Проверка неверна: ";
+                                number += eq.ToString() + "\n";
                             }
                         }
-                        MessageBox.Show(
-                               stringCondition,
-                               "Проверка корней уравнения",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.None,
-                               MessageBoxDefaultButton.Button1,
-                               MessageBoxOptions.DefaultDesktopOnly);
-                        break;
-                    }
-                default:
-                    {
-                        double EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
-                        eq = EquationOfTheFirstDegree * firstElement + freeElement;
-                        Console.WriteLine(eq);
-                        if (eq == 0)
-                        {
-                            MessageBox.Show(
-                                "Проверка верна",
-                                "Проверка корней уравнения",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.None,
-                                MessageBoxDefaultButton.Button1,
-                                MessageBoxOptions.DefaultDesktopOnly);
-                        }
-                        else
-                        {
-                            MessageBox.Show(
-                               $"Проверка не верна:{eq}",
-                               "Проверка корней уравнения",
-                               MessageBoxButtons.OK,
-                               MessageBoxIcon.Error,
-                               MessageBoxDefaultButton.Button1,
-                               MessageBoxOptions.DefaultDesktopOnly);
-                        }
+                        MassageBoxWrong(stringCondition, number);
                         break;
                     }
             }
@@ -197,11 +117,15 @@ namespace WindowsFormsApp4
         public Form1()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
+            this.MouseWheel+=Form_MouseWheel;
+            this.MaximizeBox = false;
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            comboBox1.SelectedIndex = 0;
+
             textBoxFindRoofs.Enabled = false;
 
             textBoxFifthDegree.Enabled = false;
@@ -308,7 +232,7 @@ namespace WindowsFormsApp4
         {
             buttonBuildGraph.Enabled = true;
 
-            double[] result = new double[condition];
+            IEnumerable<Complex> result;
             buttonVerification.Enabled = true;
 
             textBoxFindRoofs.Clear();
@@ -343,9 +267,9 @@ namespace WindowsFormsApp4
                     }
                 case 3:
                     {
-                        var result1 = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
+                        result = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
 
-                        foreach (var item in result1)
+                        foreach (var item in result)
                         {
                             textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                         }
@@ -353,29 +277,22 @@ namespace WindowsFormsApp4
                     }
                 case 4:
                     {
-                       List<string> res= Calculation.EquationOfTheFourthDegree(fourthElement, thirdElement, secondElement, firstElement, freeElement);
+                        result = Calculation.EquationOfTheFourthDegree(fourthElement, thirdElement, secondElement, firstElement, freeElement);
 
-                        foreach (var item in res)   
+                        foreach (var item in result)
                         {
-                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + item.ToString() + Environment.NewLine;
+                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                         }
                         break;
                     }
                 case 5:
                     {
-                        List<string> res = Calculation.EquationOfTheFifthDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
+                        result = Calculation.EquationOfTheFifthDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
 
-                        foreach (var item in res)
+                        foreach (var item in result)
                         {
-                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + item.ToString() + Environment.NewLine;
+                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                         }
-                        break;
-                    }
-                default:
-                    {
-                        double EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
-
-                        textBoxFindRoofs.Text = textBoxFindRoofs.Text + EquationOfTheFirstDegree.ToString() + Environment.NewLine;
                         break;
                     }
             }
@@ -397,9 +314,21 @@ namespace WindowsFormsApp4
 
         private void buttonBuildGraph_Click(object sender, EventArgs e)
         {
-            chart1.Series[0].Points.Clear();
-
             BuildGraph();
+        }
+
+        private void textBoxLeftSide_KeyUp(object sender, KeyEventArgs e)
+        {
+            double newXMin;
+            double.TryParse(textBoxLeftSide.Text, out newXMin);
+            chart1.ChartAreas[0].AxisX.Minimum = newXMin;
+        }
+
+        private void textBoxRightSide_KeyUp(object sender, KeyEventArgs e)
+        {
+            double newXMax;
+            double.TryParse(textBoxRightSide.Text, out newXMax);
+            chart1.ChartAreas[0].AxisX.Maximum = newXMax;
         }
 
         private void chart1_MouseMove(object sender, MouseEventArgs e)
@@ -423,15 +352,44 @@ namespace WindowsFormsApp4
                 BuildGraph();
             }
         }
+
+        private int mouseWheel = 0;
+        private bool mouseChartHover = true;
+
+        private void Form_MouseWheel(object sender, MouseEventArgs e)
+        {
+            mouseWheel = e.Delta;
+
+            if (mouseChartHover)
+            {
+                if (mouseWheel < 0)
+                {
+                    startCoordinat -= 10;
+                    endCoordinat += 10;
+                }
+                else
+                {
+                    startCoordinat += 10;
+                    endCoordinat -= 10;
+                }
+                Console.WriteLine(mouseWheel);
+                BuildGraph();
+            }
+        }
+
         private void BuildGraph()
         {
             chart1.Series[0].Points.Clear();
 
             for (double i = startCoordinat; i <= endCoordinat; i += 0.1)
             {
-                double y = fifthElement * Math.Pow(i, 5) + fourthElement * Math.Pow(i, 4) + thirdElement * Math.Pow(i, 3) + secondElement * Math.Pow(i, 2) + firstElement * i + freeElement;
+                double y = fifthElement * Math.Pow(i, 5) + fourthElement * Math.Pow(i, 4) + thirdElement * Math.Pow(i, 3) +
+                    secondElement * Math.Pow(i, 2) + firstElement * i + freeElement;
                 chart1.Series[0].Points.AddXY(i, y);
             }
+
+            textBoxLeftSide.Text = Math.Round(chart1.ChartAreas[0].AxisX.Minimum, 2).ToString();
+            textBoxRightSide.Text = Math.Round(chart1.ChartAreas[0].AxisX.Maximum, 2).ToString();
         }
     }
 }

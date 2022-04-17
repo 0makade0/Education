@@ -51,8 +51,6 @@ namespace WindowsFormsApp4
             this.buttonBuildGraph = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.ClearButton = new System.Windows.Forms.Button();
-            this.textBoxUpperSide = new System.Windows.Forms.TextBox();
-            this.textBoxLowerSide = new System.Windows.Forms.TextBox();
             this.textBoxLeftSide = new System.Windows.Forms.TextBox();
             this.textBoxRightSide = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -219,9 +217,10 @@ namespace WindowsFormsApp4
             // 
             // chart1
             // 
+            chartArea1.AxisX.LabelStyle.Format = "{0:0.0}";
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.Location = new System.Drawing.Point(38, 69);
+            this.chart1.Location = new System.Drawing.Point(12, 69);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
             series1.BorderWidth = 3;
@@ -229,7 +228,7 @@ namespace WindowsFormsApp4
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series1.Name = "Series1";
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(407, 190);
+            this.chart1.Size = new System.Drawing.Size(433, 190);
             this.chart1.TabIndex = 24;
             this.chart1.Text = "chart1";
             this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
@@ -244,26 +243,13 @@ namespace WindowsFormsApp4
             this.ClearButton.UseVisualStyleBackColor = true;
             this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
-            // textBoxUpperSide
-            // 
-            this.textBoxUpperSide.Location = new System.Drawing.Point(6, 69);
-            this.textBoxUpperSide.Name = "textBoxUpperSide";
-            this.textBoxUpperSide.Size = new System.Drawing.Size(23, 20);
-            this.textBoxUpperSide.TabIndex = 26;
-            // 
-            // textBoxLowerSide
-            // 
-            this.textBoxLowerSide.Location = new System.Drawing.Point(6, 239);
-            this.textBoxLowerSide.Name = "textBoxLowerSide";
-            this.textBoxLowerSide.Size = new System.Drawing.Size(23, 20);
-            this.textBoxLowerSide.TabIndex = 27;
-            // 
             // textBoxLeftSide
             // 
             this.textBoxLeftSide.Location = new System.Drawing.Point(38, 265);
             this.textBoxLeftSide.Name = "textBoxLeftSide";
             this.textBoxLeftSide.Size = new System.Drawing.Size(23, 20);
             this.textBoxLeftSide.TabIndex = 28;
+            this.textBoxLeftSide.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxLeftSide_KeyUp);
             // 
             // textBoxRightSide
             // 
@@ -271,16 +257,16 @@ namespace WindowsFormsApp4
             this.textBoxRightSide.Name = "textBoxRightSide";
             this.textBoxRightSide.Size = new System.Drawing.Size(23, 20);
             this.textBoxRightSide.TabIndex = 29;
+            this.textBoxRightSide.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxRightSide_KeyUp);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(585, 328);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.textBoxRightSide);
             this.Controls.Add(this.textBoxLeftSide);
-            this.Controls.Add(this.textBoxLowerSide);
-            this.Controls.Add(this.textBoxUpperSide);
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.buttonBuildGraph);
@@ -299,7 +285,6 @@ namespace WindowsFormsApp4
             this.Controls.Add(this.textBoxFourthDegree);
             this.Controls.Add(this.labelFifthDegree);
             this.Controls.Add(this.textBoxFifthDegree);
-            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.labelOfEnterEqual);
             this.Name = "Form1";
             this.Text = "Решение уравнений";
@@ -332,8 +317,6 @@ namespace WindowsFormsApp4
         private System.Windows.Forms.Button buttonBuildGraph;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Button ClearButton;
-        private System.Windows.Forms.TextBox textBoxUpperSide;
-        private System.Windows.Forms.TextBox textBoxLowerSide;
         private System.Windows.Forms.TextBox textBoxLeftSide;
         private System.Windows.Forms.TextBox textBoxRightSide;
     }
