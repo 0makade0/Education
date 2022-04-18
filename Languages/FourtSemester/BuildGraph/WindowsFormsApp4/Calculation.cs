@@ -23,44 +23,40 @@ namespace WindowsFormsApp4
                 (-b - Math.Sqrt(discriminant)) / (2 * a) };
         }
 
-        public static IEnumerable<Complex> EquationOfTheThirdDegree(double a, double b, double c, double d)
+        public static IEnumerable<Complex> EquationOfTheThirdDegree(double a0, double a1, double a2, double a3)
         {
-            if (a == 0)
-                throw new DivideByZeroException();
-            b = b / a;
-            c = c / a;
-            d = d / a;
-            var q = (Math.Pow(b, 2) - 3 * c) / 9;
-            var r = (2 * Math.Pow(b, 3) - 9 * b * c + 27 * d) / 54;
-
-            if (Math.Pow(r, 2) < Math.Pow(q, 3))
+            double a = a1 / a0, b = a2 / a0, c = a3 / a0;
+            double q = Math.Pow(a, 2) - 3 * b;
+            double r = 2 * Math.Pow(a, 3) - 9 * a * b + 27 * c;
+            if (Math.Pow(r, 2) / 2916 < Math.Pow(q, 3) / 729)
             {
-                var t = Math.Acos(r / Math.Sqrt(Math.Pow(q, 3))) / 3;
-                var x1 = -2 * Math.Sqrt(q) * Math.Cos(t) - b / 3;
-                var x2 = -2 * Math.Sqrt(q) * Math.Cos(t + (2 * Math.PI / 3)) - b / 3;
-                var x3 = -2 * Math.Sqrt(q) * Math.Cos(t - (2 * Math.PI / 3)) - b / 3;
-                return new Complex[3] { x1, x2, x3 };
+                double t = Math.Acos(r / Math.Sqrt(Math.Pow(q, 3)) / 2) / 3;
+                double x1 = -2 * Math.Sqrt(q) / 3 * Math.Cos(t) - a / 3;
+                double x2 = -2 * Math.Sqrt(q) / 3 * Math.Cos(t + (2 * Math.PI / 3)) - a / 3;
+                double x3 = -2 * Math.Sqrt(q) / 3 * Math.Cos(t - (2 * Math.PI / 3)) - a / 3;
+                return new List<Complex> { x1, x2, x3 };
             }
             else
             {
-                var A1 = -Math.Sign(r) * Math.Pow(Math.Abs(r) + Math.Sqrt(Math.Pow(r, 2) - Math.Pow(q, 3)), (1.0 / 3.0));
-                var B1 = (A1 == 0) ? 0.0 : q / A1;
-
-                var x1 = (A1 + B1) - b / 3;
-                var x2 = -(A1 + B1) / 2 - (b / 3) + (Complex.ImaginaryOne * Math.Sqrt(3) * (A1 - B1) / 2);
-                var x3 = -(A1 + B1) / 2 - (b / 3) - (Complex.ImaginaryOne * Math.Sqrt(3) * (A1 - B1) / 2);
-
-                if (A1 == B1)
+                double A = -Math.Sign(r) * Math.Pow(3 * Math.Abs(r) + Math.Sqrt(9 * Math.Pow(r, 2) - 36 * Math.Pow(q, 3)), (double)1 / 3) / 3 / Math.Pow(6, (double)1 / 3);
+                double B = (A == 0) ? 0 : q / A / 9;
+                double x1 = (A + B) - a / 3;
+                if (A - B < 1E-14 && A - B > -1E-14)
                 {
-                    x2 = -A1 - b / 3;
-                    return new Complex[2] { x1, x2 };
+                    double x2 = -A - a / 3;
+                    return new List<Complex> { x1, x2 };
                 }
-                return new Complex[3] { x1, x2, x3 };
+                else
+                {
+                    Complex x2 = new Complex(-(A + B) / 2 - (a / 3), Math.Sqrt(3) * (A - B) / 2);
+                    Complex x3 = new Complex(-(A + B) / 2 - (a / 3), -Math.Sqrt(3) * (A - B) / 2);
+                    return new List<Complex> { x1, x2, x3 };
+                }
             }
-        } 
+        }
 
-        public static IEnumerable<Complex> EquationOfTheFourthDegree(double a, double b, double c, double d, double e)
-        {
+            public static IEnumerable<Complex> EquationOfTheFourthDegree(double a, double b, double c, double d, double e)
+            {
 
             b = b / a;
             c = c / a;
