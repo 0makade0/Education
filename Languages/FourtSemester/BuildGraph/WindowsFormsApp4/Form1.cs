@@ -13,6 +13,8 @@ namespace WindowsFormsApp4
         private int currentPosition = 0;
         private static double startCoordinat = -10;
         private static double endCoordinat = 10;
+        private int mouseWheel = 0;
+        private bool mouseChartHover = true;
 
         private static string GetString(Complex complex)
         {
@@ -21,6 +23,39 @@ namespace WindowsFormsApp4
             else
                 return complex.Real.ToString() + " + " + complex.Imaginary.ToString() + "i";
         }
+
+        public Form1()
+        {
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.MouseWheel+=Form_MouseWheel;
+            this.MaximizeBox = false;
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            comboBox1.SelectedIndex = 0;
+
+            textBoxFindRoofs.Enabled = false;
+
+            textBoxFifthDegree.Enabled = false;
+            textBoxFourthDegree.Enabled = false;
+            textBoxThirdDegree.Enabled = false;
+            textBoxSecondDegree.Enabled = false;
+
+            labelFifthDegree.Enabled = false;
+            labelFourthDegree.Enabled = false;
+            labelThirdDegree.Enabled = false;
+            labelSecondDegree.Enabled = false;
+
+            buttonVerification.Enabled = false;
+
+            buttonBuildGraph.Enabled = false;
+            chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+
+        }
+
 
         //Проверка корней уравнения
         private void buttonVerification_Click(object sender, EventArgs e)
@@ -83,7 +118,7 @@ namespace WindowsFormsApp4
                     }
                 case 4:
                     {
-                        result = Calculation.EquationOfTheFourthDegree(fourthElement,thirdElement, secondElement, firstElement, freeElement);
+                        result = Calculation.FindingRootsOfHigherDegree(0, fourthElement, thirdElement, secondElement, firstElement, freeElement);
                         foreach (var item in result)
                         {
                             eq = Math.Pow(item.Real, 4) * fourthElement + Math.Pow(item.Real, 3) * thirdElement + (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement + item.Real * firstElement + freeElement;
@@ -98,7 +133,7 @@ namespace WindowsFormsApp4
                     }
                 case 5:
                     {
-                        result = Calculation.EquationOfTheFifthDegree(fifthElement,fourthElement,thirdElement, secondElement, firstElement, freeElement);
+                        result = Calculation.FindingRootsOfHigherDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
                         foreach (var item in result)
                         {
                             eq = Math.Pow(item.Real, 5) * fifthElement + Math.Pow(item.Real, 4) * fourthElement + Math.Pow(item.Real, 3) * thirdElement + (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement + item.Real * firstElement + freeElement;
@@ -114,36 +149,29 @@ namespace WindowsFormsApp4
             }
         }
 
-        public Form1()
+        private void PowButton(int pow)
         {
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.MouseWheel+=Form_MouseWheel;
-            this.MaximizeBox = false;
-            InitializeComponent();
-        }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            comboBox1.SelectedIndex = 0;
+            textBoxFifthDegree.Enabled = pow > 4;
+            textBoxFourthDegree.Enabled = pow > 3;
+            textBoxThirdDegree.Enabled = pow > 2;
+            textBoxSecondDegree.Enabled = pow > 1;
 
-            textBoxFindRoofs.Enabled = false;
+            labelFifthDegree.Enabled = pow > 4;
+            labelFourthDegree.Enabled = pow > 3;
+            labelThirdDegree.Enabled = pow > 2;
+            labelSecondDegree.Enabled = pow > 1;
 
-            textBoxFifthDegree.Enabled = false;
-            textBoxFourthDegree.Enabled = false;
-            textBoxThirdDegree.Enabled = false;
-            textBoxSecondDegree.Enabled = false;
+            if (pow < 5) textBoxFifthDegree.Text = string.Empty;
+            if (pow < 4) textBoxFourthDegree.Text = string.Empty;
+            if (pow < 3) textBoxThirdDegree.Text = string.Empty;
+            if (pow < 2) textBoxSecondDegree.Text = string.Empty;
 
-            labelFifthDegree.Enabled = false;
-            labelFourthDegree.Enabled = false;
-            labelThirdDegree.Enabled = false;
-            labelSecondDegree.Enabled = false;
-
-            buttonVerification.Enabled = false;
-
-            buttonBuildGraph.Enabled = false;
-            chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
-            chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-
+            if (pow == 5) textBoxFifthDegree.Focus();
+            if (pow == 4) textBoxFourthDegree.Focus();
+            if (pow == 3) textBoxThirdDegree.Focus();
+            if (pow == 2) textBoxFirstDegree.Focus();
+            if (pow == 1) textBoxFreeMember.Focus();
         }
 
         //Комбо бокс с выбором степени уравнения
@@ -164,68 +192,29 @@ namespace WindowsFormsApp4
             {
                 case 2:
                     {
-                        textBoxSecondDegree.Enabled = true;
-                        labelSecondDegree.Enabled = true;
-
-                        textBoxFourthDegree.Enabled = false;
-                        labelFourthDegree.Enabled = false;
-                        textBoxFifthDegree.Enabled = false;
-                        labelFifthDegree.Enabled = false;
-                        textBoxThirdDegree.Enabled = false;
-                        labelThirdDegree.Enabled = false;
+                        PowButton(condition);
                         break;
                     }
                 case 3:
                     {
-                        textBoxSecondDegree.Enabled = true;
-                        labelSecondDegree.Enabled = true;
-                        textBoxThirdDegree.Enabled = true;
-                        labelThirdDegree.Enabled = true;
-
-                        textBoxFourthDegree.Enabled = false;
-                        labelFourthDegree.Enabled = false;
-                        textBoxFifthDegree.Enabled = false;
-                        labelFifthDegree.Enabled = false;
+                        PowButton(condition);
                         break;
                     }
                 case 4:
                     {
-                        textBoxSecondDegree.Enabled = true;
-                        labelSecondDegree.Enabled = true;
-                        textBoxThirdDegree.Enabled = true;
-                        labelThirdDegree.Enabled = true;
-                        textBoxFourthDegree.Enabled = true;
-                        labelFourthDegree.Enabled = true;
-
-                        textBoxFifthDegree.Enabled = false;
-                        labelFifthDegree.Enabled = false;
+                        PowButton(condition);
                         break;
                     }
                 case 5:
                     {
-                        textBoxSecondDegree.Enabled = true;
-                        labelSecondDegree.Enabled = true;
-                        textBoxThirdDegree.Enabled = true;
-                        labelThirdDegree.Enabled = true;
-                        textBoxFourthDegree.Enabled = true;
-                        labelFourthDegree.Enabled = true;
-                        textBoxFifthDegree.Enabled = true;
-                        labelFifthDegree.Enabled = true;
+                        PowButton(condition);
                         break;
                     }
                 default:
-                    textBoxSecondDegree.Enabled = false;
-                    labelSecondDegree.Enabled = false;
-                    textBoxFourthDegree.Enabled = false;
-                    labelFourthDegree.Enabled = false;
-                    textBoxFifthDegree.Enabled = false;
-                    labelFifthDegree.Enabled = false;
-                    textBoxThirdDegree.Enabled = false;
-                    labelThirdDegree.Enabled = false;
+                    PowButton(condition);
                     break;
             }
         }
-
 
         //Нахождение корней уравнения
         private void buttonFindRoofs_Click(object sender, EventArgs e)
@@ -277,7 +266,7 @@ namespace WindowsFormsApp4
                     }
                 case 4:
                     {
-                        result = Calculation.EquationOfTheFourthDegree(fourthElement, thirdElement, secondElement, firstElement, freeElement);
+                        result = Calculation.FindingRootsOfHigherDegree(0,fourthElement, thirdElement, secondElement, firstElement, freeElement);
 
                         foreach (var item in result)
                         {
@@ -287,7 +276,7 @@ namespace WindowsFormsApp4
                     }
                 case 5:
                     {
-                        result = Calculation.EquationOfTheFifthDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
+                        result = Calculation.FindingRootsOfHigherDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
 
                         foreach (var item in result)
                         {
@@ -352,9 +341,6 @@ namespace WindowsFormsApp4
                 BuildGraph();
             }
         }
-
-        private int mouseWheel = 0;
-        private bool mouseChartHover = true;
 
         private void Form_MouseWheel(object sender, MouseEventArgs e)
         {
