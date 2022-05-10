@@ -30,10 +30,13 @@ namespace WindowsFormsApp4
             this.MouseWheel+=Form_MouseWheel;
             this.MaximizeBox = false;
             InitializeComponent();
+            radioButton1.Checked = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            groupBoxOfMethodSolution.Enabled = false;
+
             comboBox1.SelectedIndex = 0;
 
             textBoxFindRoofs.Enabled = false;
@@ -42,12 +45,16 @@ namespace WindowsFormsApp4
             textBoxFourthDegree.Enabled = false;
             textBoxThirdDegree.Enabled = false;
             textBoxSecondDegree.Enabled = false;
+            textBoxFirstDegree.Enabled = false;
+            textBoxFreeMember.Enabled = false;
 
             labelFifthDegree.Enabled = false;
             labelFourthDegree.Enabled = false;
             labelThirdDegree.Enabled = false;
             labelSecondDegree.Enabled = false;
+            labelThirstDegree.Enabled = false;
 
+            buttonFindRoofs.Enabled = false;
             buttonVerification.Enabled = false;
 
             buttonBuildGraph.Enabled = false;
@@ -56,8 +63,6 @@ namespace WindowsFormsApp4
 
         }
 
-
-        //Проверка корней уравнения
         private void buttonVerification_Click(object sender, EventArgs e)
         {
             IEnumerable<Complex> result;
@@ -151,6 +156,12 @@ namespace WindowsFormsApp4
 
         private void PowButton(int pow)
         {
+            textBoxFirstDegree.Enabled = true;
+            textBoxFreeMember.Enabled = true;
+
+            buttonFindRoofs.Enabled = true;
+
+            labelThirstDegree.Enabled = true;
 
             textBoxFifthDegree.Enabled = pow > 4;
             textBoxFourthDegree.Enabled = pow > 3;
@@ -174,7 +185,6 @@ namespace WindowsFormsApp4
             if (pow == 1) textBoxFreeMember.Focus();
         }
 
-        //Комбо бокс с выбором степени уравнения
         private void comboBox1_TextChanged(object sender, EventArgs e)
         {
             textBoxFindRoofs.Clear();
@@ -190,33 +200,42 @@ namespace WindowsFormsApp4
 
             switch (condition)
             {
+                case 1:
+                    {
+                        groupBoxOfMethodSolution.Enabled = true;
+                        PowButton(condition);
+                        break;
+                    }
                 case 2:
                     {
+                        groupBoxOfMethodSolution.Enabled = true;
                         PowButton(condition);
                         break;
                     }
                 case 3:
                     {
+                        groupBoxOfMethodSolution.Enabled = true;
                         PowButton(condition);
                         break;
                     }
                 case 4:
                     {
+                        groupBoxOfMethodSolution.Enabled = false;
                         PowButton(condition);
                         break;
                     }
                 case 5:
                     {
+                        groupBoxOfMethodSolution.Enabled = false;
                         PowButton(condition);
                         break;
                     }
                 default:
-                    PowButton(condition);
+                    groupBoxOfMethodSolution.Enabled = false;
                     break;
             }
         }
 
-        //Нахождение корней уравнения
         private void buttonFindRoofs_Click(object sender, EventArgs e)
         {
             buttonBuildGraph.Enabled = true;
@@ -237,14 +256,36 @@ namespace WindowsFormsApp4
             {
                 case 1:
                     {
-
-                        double EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
-                        textBoxFindRoofs.Text = textBoxFindRoofs.Text + EquationOfTheFirstDegree.ToString() + Environment.NewLine;
+                        double EquationOfTheFirstDegree;
+                        if (firstElement==0)
+                        {
+                            MessageBox.Show("Коэффициент при х не может быть нулём");
+                            this.Close();
+                        }
+                        if (radioButton1.Checked)
+                        {
+                            EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
+                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + EquationOfTheFirstDegree.ToString() + Environment.NewLine;
+                        }
+                        else
+                        {
+                            result = Calculation.FindingRootsOfHigherDegree(0, 0, 0, 0, firstElement, freeElement);
+                            foreach (var item in result)
+                            {
+                                textBoxFindRoofs.Text = textBoxFindRoofs.Text + item.ToString() + Environment.NewLine;
+                            }
+                        }
                         break;
                     }
                 case 2:
                     {
-                        result = Calculation.EquationOfTheSecondDegree(secondElement, firstElement, freeElement);
+                        if (secondElement == 0)
+                        {
+                            MessageBox.Show("Коэффициент при х^2 не может быть нулём");
+                            this.Close();
+                        }
+                        if (radioButton1.Checked) result = Calculation.EquationOfTheSecondDegree(secondElement, firstElement, freeElement);
+                        else result = Calculation.FindingRootsOfHigherDegree(0, 0, 0, secondElement, firstElement, freeElement);
 
                         foreach (var item in result)
                         {
@@ -256,8 +297,13 @@ namespace WindowsFormsApp4
                     }
                 case 3:
                     {
-                        result = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
-
+                        if (thirdElement == 0)
+                        {
+                            MessageBox.Show("Коэффициент при х^3 не может быть нулём");
+                            this.Close();
+                        }
+                        if (radioButton1.Checked) result = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
+                        else result = Calculation.FindingRootsOfHigherDegree(0, 0, thirdElement, secondElement, firstElement, freeElement);
                         foreach (var item in result)
                         {
                             textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
@@ -266,6 +312,11 @@ namespace WindowsFormsApp4
                     }
                 case 4:
                     {
+                        if (fourthElement == 0)
+                        {
+                            MessageBox.Show("Коэффициент при х^4 не может быть нулём");
+                            this.Close();
+                        }
                         result = Calculation.FindingRootsOfHigherDegree(0,fourthElement, thirdElement, secondElement, firstElement, freeElement);
 
                         foreach (var item in result)
@@ -276,6 +327,11 @@ namespace WindowsFormsApp4
                     }
                 case 5:
                     {
+                        if (fifthElement == 0)
+                        {
+                            MessageBox.Show("Коэффициент при х^5 не может быть нулём");
+                            this.Close();
+                        }
                         result = Calculation.FindingRootsOfHigherDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
 
                         foreach (var item in result)
@@ -287,7 +343,6 @@ namespace WindowsFormsApp4
             }
         }
 
-        //Очистка полей
         private void ClearButton_Click(object sender, EventArgs e)
         {
             textBoxFindRoofs.Clear();
@@ -301,10 +356,7 @@ namespace WindowsFormsApp4
             textBoxFreeMember.Clear();
         }
 
-        private void buttonBuildGraph_Click(object sender, EventArgs e)
-        {
-            BuildGraph();
-        }
+        private void buttonBuildGraph_Click(object sender, EventArgs e)=>BuildGraph();
 
         private void textBoxLeftSide_KeyUp(object sender, KeyEventArgs e)
         {
@@ -376,6 +428,108 @@ namespace WindowsFormsApp4
 
             textBoxLeftSide.Text = Math.Round(chart1.ChartAreas[0].AxisX.Minimum, 2).ToString();
             textBoxRightSide.Text = Math.Round(chart1.ChartAreas[0].AxisX.Maximum, 2).ToString();
+        }
+        private void textBoxFreeMember_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 45 && textBoxFreeMember.SelectionStart == 0) {; }
+            else
+            {
+                if (e.KeyChar == '.') e.KeyChar = ',';
+                if (e.KeyChar != 13 && e.KeyChar != 44 && e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != '-')
+                {
+                    e.Handled = true;
+                    MessageBox.Show("Только цифры,точку(запятую),минус");
+                }
+            }
+            if (e.KeyChar == 13)
+                if (textBoxFreeMember.Text.Length > 0) buttonFindRoofs_Click(textBoxFreeMember, null);
+                else MessageBox.Show("Введите число");
+        }
+
+        private void textBoxFirstDegree_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 45 && textBoxFreeMember.SelectionStart == 0) {; }
+            else
+            {
+                if (e.KeyChar == '.') e.KeyChar = ',';
+                if (e.KeyChar != 13 && e.KeyChar != 44 && e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != '-')
+                {
+                    e.Handled = true;
+                    MessageBox.Show("Только цифры,точку(запятую),минус");
+                }
+            }
+            if (e.KeyChar == 13)
+                if (textBoxFreeMember.Text.Length > 0) buttonFindRoofs_Click(textBoxFreeMember, null);
+                else MessageBox.Show("Введите число");
+        }
+
+        private void textBoxSecondDegree_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+
+            if (e.KeyChar == 45 && textBoxFreeMember.SelectionStart == 0) {; }
+            else
+            {
+                if (e.KeyChar == '.') e.KeyChar = ',';
+                if (e.KeyChar != 13 && e.KeyChar != 44 && e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar!='-')
+                {
+                    e.Handled = true;
+                    MessageBox.Show("Только цифры,точку(запятую),минус");
+                }
+            }
+            if (e.KeyChar == 13)
+                if (textBoxFreeMember.Text.Length > 0) buttonFindRoofs_Click(textBoxFreeMember, null);
+                else MessageBox.Show("Введите число");
+        }
+
+        private void textBoxThirdDegree_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 45 && textBoxFreeMember.SelectionStart == 0) {; }
+            else
+            {
+                if (e.KeyChar == '.') e.KeyChar = ',';
+                if (e.KeyChar != 13 && e.KeyChar != 44 && e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != '-')
+                {
+                    e.Handled = true;
+                    MessageBox.Show("Только цифры,точку(запятую),минус");
+                }
+            }
+            if (e.KeyChar == 13)
+                if (textBoxFreeMember.Text.Length > 0) buttonFindRoofs_Click(textBoxFreeMember, null);
+                else MessageBox.Show("Введите число");
+        }
+
+        private void textBoxFourthDegree_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 45 && textBoxFreeMember.SelectionStart == 0) {; }
+            else
+            {
+                if (e.KeyChar == '.') e.KeyChar = ',';
+                if (e.KeyChar != 13 && e.KeyChar != 44 && e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != '-')
+                {
+                    e.Handled = true;
+                    MessageBox.Show("Только цифры,точку(запятую),минус");
+                }
+            }
+            if (e.KeyChar == 13)
+                if (textBoxFreeMember.Text.Length > 0) buttonFindRoofs_Click(textBoxFreeMember, null);
+                else MessageBox.Show("Введите число");
+        }
+
+        private void textBoxFifthDegree_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 45 && textBoxFreeMember.SelectionStart == 0) {; }
+            else
+            {
+                if (e.KeyChar == '.') e.KeyChar = ',';
+                if (e.KeyChar != 13 && e.KeyChar != 44 && e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != '-')
+                {
+                    e.Handled = true;
+                    MessageBox.Show("Только цифры,точку(запятую),минус");
+                }
+            }
+            if (e.KeyChar == 13)
+                if (textBoxFreeMember.Text.Length > 0) buttonFindRoofs_Click(textBoxFreeMember, null);
+                else MessageBox.Show("Введите число");
         }
     }
 }
