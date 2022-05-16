@@ -265,7 +265,7 @@ namespace WindowsFormsApp4
                         if (radioButton1.Checked)
                         {
                             EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
-                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + EquationOfTheFirstDegree.ToString() + Environment.NewLine;
+                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + EquationOfTheFirstDegree.ToString() + Environment.NewLine;                   
                             if (textBoxFindRoofs.Text==null)
                             {
                                 textBoxFindRoofs.Text = "нет корней";
@@ -280,6 +280,7 @@ namespace WindowsFormsApp4
                                 textBoxFindRoofs.Text = textBoxFindRoofs.Text + item.ToString() + Environment.NewLine;
                             }
                         }
+                        if (string.IsNullOrEmpty(textBoxFindRoofs.Text)) textBoxFindRoofs.Text = "Нет корней";
                         break;
                     }
                 case 2:
@@ -291,11 +292,11 @@ namespace WindowsFormsApp4
                         }
                         if (radioButton1.Checked) result = Calculation.EquationOfTheSecondDegree(secondElement, firstElement, freeElement);
                         else result = Calculation.FindingRootsOfHigherDegree(0, 0, 0, secondElement, firstElement, freeElement);
-
                         foreach (var item in result)
                         {
                             textBoxFindRoofs.Text = textBoxFindRoofs.Text + item.ToString() + Environment.NewLine;
                         }
+                        if (string.IsNullOrEmpty(textBoxFindRoofs.Text)) textBoxFindRoofs.Text = "Нет корней";
                         break;
                     }
                 case 3:
@@ -311,6 +312,7 @@ namespace WindowsFormsApp4
                         {
                             textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                         }
+                        if (string.IsNullOrEmpty(textBoxFindRoofs.Text)) textBoxFindRoofs.Text = "Нет корней";
                         break;
                     }
                 case 4:
@@ -326,6 +328,7 @@ namespace WindowsFormsApp4
                         {
                             textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                         }
+                        if (string.IsNullOrEmpty(textBoxFindRoofs.Text)) textBoxFindRoofs.Text = "Нет корней";
                         break;
                     }
                 case 5:
@@ -341,6 +344,7 @@ namespace WindowsFormsApp4
                         {
                             textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
                         }
+                        if (string.IsNullOrEmpty(textBoxFindRoofs.Text)) textBoxFindRoofs.Text = "Нет корней";
                         break;
                     }
             }
