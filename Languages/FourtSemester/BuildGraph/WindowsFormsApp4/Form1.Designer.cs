@@ -29,8 +29,8 @@ namespace WindowsFormsApp4
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.labelOfEnterEqual = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBoxFifthDegree = new System.Windows.Forms.TextBox();
@@ -54,8 +54,8 @@ namespace WindowsFormsApp4
             this.textBoxLeftSide = new System.Windows.Forms.TextBox();
             this.textBoxRightSide = new System.Windows.Forms.TextBox();
             this.groupBoxOfMethodSolution = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.groupBoxOfMethodSolution.SuspendLayout();
             this.SuspendLayout();
@@ -228,17 +228,17 @@ namespace WindowsFormsApp4
             // 
             // chart1
             // 
-            chartArea3.AxisX.LabelStyle.Format = "{0:0.0}";
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
+            chartArea1.AxisX.LabelStyle.Format = "{0:0.0}";
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Location = new System.Drawing.Point(12, 69);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series3.BorderWidth = 3;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series3.Name = "Series1";
-            this.chart1.Series.Add(series3);
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
             this.chart1.Size = new System.Drawing.Size(433, 190);
             this.chart1.TabIndex = 24;
             this.chart1.Text = "chart1";
@@ -280,17 +280,6 @@ namespace WindowsFormsApp4
             this.groupBoxOfMethodSolution.TabIndex = 30;
             this.groupBoxOfMethodSolution.TabStop = false;
             // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(0, 8);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(102, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Аналитический";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
@@ -301,6 +290,17 @@ namespace WindowsFormsApp4
             this.radioButton2.TabStop = true;
             this.radioButton2.Text = "Численный";
             this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(0, 8);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(102, 17);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Аналитический";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

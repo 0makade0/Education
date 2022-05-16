@@ -266,6 +266,11 @@ namespace WindowsFormsApp4
                         {
                             EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
                             textBoxFindRoofs.Text = textBoxFindRoofs.Text + EquationOfTheFirstDegree.ToString() + Environment.NewLine;
+                            if (textBoxFindRoofs.Text==null)
+                            {
+                                textBoxFindRoofs.Text = "нет корней";
+                                break;
+                            }
                         }
                         else
                         {
@@ -291,8 +296,6 @@ namespace WindowsFormsApp4
                         {
                             textBoxFindRoofs.Text = textBoxFindRoofs.Text + item.ToString() + Environment.NewLine;
                         }
-
-
                         break;
                     }
                 case 3:

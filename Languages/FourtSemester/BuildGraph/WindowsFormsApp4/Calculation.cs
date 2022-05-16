@@ -8,22 +8,25 @@ namespace WindowsFormsApp4
     {
         public static double Discriminant(double a, double b, double c) => Math.Pow(b, 2) - 4 * a * c;
 
-        public static Complex[] EquationOfTheSecondDegree(double a, double b, double c)
+        public static IEnumerable<Complex> EquationOfTheSecondDegree(double a0, double a1, double a2)
         {
-            if (a == 0)
-                throw new DivideByZeroException();
-
-            double discriminant = Math.Pow(b, 2) - 4 * a * c; // Дискриминант
-
-            if (discriminant < 0) // Нет действительных корней
-                return new Complex[0];
-
-            return new Complex[2] { // 2 корня
-                (-b + Math.Sqrt(discriminant)) / (2 * a),
-                (-b - Math.Sqrt(discriminant)) / (2 * a) };
+            double disc = a1 * a1 - 4 * a0 * a2;
+            if (disc < 1E-14 && disc > -1E-14)
+                disc = 0;
+            if (disc < 0)
+            {
+                double bufer = Math.Sqrt(-disc) / 2 / a0;
+                if (bufer < 1E-9 && bufer > -1E-9)
+                    bufer = 0;
+                return new List<Complex> { new Complex(-a1 / 2 / a0, bufer), new Complex(-a1 / 2 / a0, -bufer) };
+            }
+            else
+            {
+                return new List<Complex> { new Complex((-a1 - Math.Sqrt(disc)) / 2 / a0, 0), new Complex((-a1 + Math.Sqrt(disc)) / 2 / a0, 0) };
+            }
         }
 
-        public static IEnumerable<Complex> EquationOfTheThirdDegree(double a0, double a1, double a2, double a3)
+        public static IEnumerable<Complex> EquationOfTheThirdDegree(double a0, double a1, double a2, double a3) 
         {
             double a = a1 / a0, b = a2 / a0, c = a3 / a0;
             double q = Math.Pow(a, 2) - 3 * b;
