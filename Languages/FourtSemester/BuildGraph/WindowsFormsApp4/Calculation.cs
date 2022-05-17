@@ -14,7 +14,7 @@ namespace WindowsFormsApp4
             else if (b!=0) return FindingRoots(b, c, d, e, f);
             else if (c != 0) return FindingRoots(c, d, e, f);
             else if (d != 0) return FindingRoots(d, e, f);
-            else return FindingRoots(e, f);
+            return FindingRoots(e, f);
         }
 
         //Методы нахождения корней
