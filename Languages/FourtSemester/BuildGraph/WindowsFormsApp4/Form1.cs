@@ -179,12 +179,31 @@ namespace WindowsFormsApp4
             textBoxRightSide.Text = Math.Round(chart1.ChartAreas[0].AxisX.Maximum, 2).ToString();
         }
         private void buttonBuildGraph_Click(object sender, EventArgs e) => BuildGraph();
-        private void numericFifthDegree_Leave(object sender, EventArgs e)=>numericFifthDegree.Text = "0";
-        private void numericFourthDegree_Leave(object sender, EventArgs e)=> numericFourthDegree.Text = "0";
-        private void numericThirdDegree_Leave(object sender, EventArgs e)=> numericThirdDegree.Text = "0";
-        private void numericSecondDegree_Leave(object sender, EventArgs e)=> numericSecondDegree.Text = "0";
-        private void numericFirstDegree_Leave(object sender, EventArgs e)=> numericFirstDegree.Text = "0";
-        private void numericFreeDegree_Leave(object sender, EventArgs e)=> numericFreeDegree.Text = "0";
+
+        private void numericFifthDegree_Leave(object sender, EventArgs e)
+        {
+            if(string.IsNullOrEmpty(numericFifthDegree.Text)) numericFifthDegree.Text = "0";
+        }
+        private void numericFourthDegree_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(numericFourthDegree.Text)) numericFourthDegree.Text = "0";
+        }
+        private void numericThirdDegree_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(numericThirdDegree.Text)) numericThirdDegree.Text = "0";
+        }
+        private void numericSecondDegree_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(numericSecondDegree.Text)) numericSecondDegree.Text = "0";
+        }
+        private void numericFirstDegree_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(numericFirstDegree.Text)) numericFirstDegree.Text = "0";
+        }
+        private void numericFreeDegree_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(numericFreeDegree.Text)) numericFreeDegree.Text = "0";
+        }
         private void numericFifthDegree_MouseClick(object sender, MouseEventArgs e) => numericFifthDegree.Select(0, 5);
         private void numericFourthDegree_MouseClick(object sender, MouseEventArgs e) => numericFourthDegree.Select(0, 5);
         private void numericThirdDegree_MouseClick(object sender, MouseEventArgs e) => numericThirdDegree.Select(0, 5);
