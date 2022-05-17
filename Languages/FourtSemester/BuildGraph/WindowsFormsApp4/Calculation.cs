@@ -6,10 +6,24 @@ namespace WindowsFormsApp4
 {
     public static class Calculation
     {
-        public static double Discriminant(double a, double b, double c) => Math.Pow(b, 2) - 4 * a * c;
-
-        public static IEnumerable<Complex> EquationOfTheSecondDegree(double a0, double a1, double a2)
+        //Выбор перегрузки путём передаваемых параметров
+        public static IEnumerable<Complex> InputFactors(double a, double b, double c, double d, double e, double f)
         {
+
+            if(a!=0) return FindingRoots(a, b, c, d, e, f);
+            else if (b!=0) return FindingRoots(b, c, d, e, f);
+            else if (c != 0) return FindingRoots(c, d, e, f);
+            else if (d != 0) return FindingRoots(d, e, f);
+            else return FindingRoots(e, f);
+        }
+
+        //Методы нахождения корней
+
+        public static IEnumerable<Complex> FindingRoots(double a, double b) =>new List<Complex> { -b / a};
+
+        public static IEnumerable<Complex> FindingRoots(double a0, double a1, double a2)
+        {
+
             double disc = a1 * a1 - 4 * a0 * a2;
             if (disc < 1E-14 && disc > -1E-14)
                 disc = 0;
@@ -26,7 +40,7 @@ namespace WindowsFormsApp4
             }
         }
 
-        public static IEnumerable<Complex> EquationOfTheThirdDegree(double a0, double a1, double a2, double a3) 
+        public static IEnumerable<Complex> FindingRoots(double a0, double a1, double a2, double a3) 
         {
             double a = a1 / a0, b = a2 / a0, c = a3 / a0;
             double q = Math.Pow(a, 2) - 3 * b;
@@ -57,7 +71,26 @@ namespace WindowsFormsApp4
                 }
             }
         }
-        public static IEnumerable<Complex> FindingRootsOfHigherDegree(double a, double b, double c, double d, double e, double f)
+
+        public static IEnumerable<Complex> FindingRoots(double a, double b, double c, double d, double e)
+        {
+            int startCalc = -100, endCalc = 100;
+            double step = 0.01;
+            Complex num;
+            List<Complex> listResult = new List<Complex>();
+            for (double i = startCalc; i <= endCalc; i += step)
+            {
+                i = Math.Round(i, 2);
+                num = Math.Pow(i, 4) * a + Math.Pow(i, 3) * b + Math.Pow(i, 2) * c + i * d +  e ;
+                if (num == 0)
+                {
+                    listResult.Add(i);
+                }
+            }
+            return listResult;
+        }
+
+        public static IEnumerable<Complex> FindingRoots(double a, double b, double c, double d, double e, double f)
         {
             int startCalc = -100, endCalc = 100;
             double step = 0.01;

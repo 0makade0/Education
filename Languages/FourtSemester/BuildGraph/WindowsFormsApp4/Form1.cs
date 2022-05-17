@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp4
 {
     public partial class Form1 : Form
     {
-        private int condition;
         private double freeElement, firstElement, secondElement, thirdElement, fourthElement, fifthElement;
-        private int previousPosition= 0;
+        private int previousPosition = 0;
         private int currentPosition = 0;
         private static double startCoordinat = -10;
         private static double endCoordinat = 10;
@@ -27,40 +26,43 @@ namespace WindowsFormsApp4
         public Form1()
         {
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.MouseWheel+=Form_MouseWheel;
+            this.MouseWheel += Form_MouseWheel;
             this.MaximizeBox = false;
             InitializeComponent();
-            radioButton1.Checked = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            groupBoxOfMethodSolution.Enabled = false;
-
-            comboBox1.SelectedIndex = 0;
-
-            textBoxFindRoofs.Enabled = false;
-
-            textBoxFifthDegree.Enabled = false;
-            textBoxFourthDegree.Enabled = false;
-            textBoxThirdDegree.Enabled = false;
-            textBoxSecondDegree.Enabled = false;
-            textBoxFirstDegree.Enabled = false;
-            textBoxFreeMember.Enabled = false;
-
-            labelFifthDegree.Enabled = false;
-            labelFourthDegree.Enabled = false;
-            labelThirdDegree.Enabled = false;
-            labelSecondDegree.Enabled = false;
-            labelThirstDegree.Enabled = false;
-
-            buttonFindRoofs.Enabled = false;
             buttonVerification.Enabled = false;
 
             buttonBuildGraph.Enabled = false;
             chart1.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
             chart1.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+        }
 
+        private void buttonFindRoofs_Click(object sender, EventArgs e)
+        {
+            IEnumerable<Complex> result;
+
+            buttonBuildGraph.Enabled = true;
+            buttonVerification.Enabled = true;
+
+            textBoxFindRoots.Clear(); 
+
+            double.TryParse(numericFreeDegree.Text, out freeElement);
+            double.TryParse(numericFirstDegree.Text, out firstElement);
+            double.TryParse(numericSecondDegree.Text, out secondElement);
+            double.TryParse(numericThirdDegree.Text, out thirdElement);
+            double.TryParse(numericFourthDegree.Text, out fourthElement);
+            double.TryParse(numericFifthDegree.Text, out fifthElement);
+
+            result = Calculation.InputFactors(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
+
+            foreach (var item in result)
+            {
+                textBoxFindRoots.Text = textBoxFindRoots.Text + GetString(item) + Environment.NewLine;
+            }
+            if (string.IsNullOrEmpty(textBoxFindRoots.Text)) textBoxFindRoots.Text = "Нет корней";
         }
 
         private void buttonVerification_Click(object sender, EventArgs e)
@@ -78,292 +80,32 @@ namespace WindowsFormsApp4
                     MessageBoxDefaultButton.Button1,
                     MessageBoxOptions.DefaultDesktopOnly);
             }
-            switch (condition)
+
+            result = Calculation.InputFactors(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
+            foreach (var item in result)
             {
-                case 1:
-                    {
-                        double EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
-                        eq = EquationOfTheFirstDegree * firstElement + freeElement;
-                        if (eq != 0)
-                        {
-                            stringCondition = "Проверка неверна: ";
-                        }
-                        MassageBoxWrong(stringCondition, "");
-                        break;
-                    }
-                case 2:
-                    {
-                        result = Calculation.EquationOfTheSecondDegree(secondElement, firstElement, freeElement);
-                        foreach (var item in result)
-                        {
-                            eq = (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement + item.Real * firstElement + freeElement;
-                            if (eq != 0)
-                            {
-                                stringCondition = "Проверка неверна: ";
-                                number += eq.ToString() + "\n";
-                            }
-                        }
-                        MassageBoxWrong(stringCondition, number);
-                        break;
-                    }
-                case 3:
-                    {
-                        result = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
-                        foreach (var item in result)
-                        {
-                            eq = Math.Pow(item.Real, 3) * thirdElement + (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement + item.Real * firstElement + freeElement;
-                            if (eq != 0)
-                            {
-                                stringCondition = "Проверка неверна: ";
-                                number += eq.ToString() + "\n";
-                            }
-                        }
-                        MassageBoxWrong(stringCondition, number);
-                        break;
-                    }
-                case 4:
-                    {
-                        result = Calculation.FindingRootsOfHigherDegree(0, fourthElement, thirdElement, secondElement, firstElement, freeElement);
-                        foreach (var item in result)
-                        {
-                            eq = Math.Pow(item.Real, 4) * fourthElement + Math.Pow(item.Real, 3) * thirdElement + (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement + item.Real * firstElement + freeElement;
-                            if (eq != 0)
-                            {
-                                stringCondition = "Проверка неверна: ";
-                                number += eq.ToString() + "\n";
-                            }
-                        }
-                        MassageBoxWrong(stringCondition, number);
-                        break;
-                    }
-                case 5:
-                    {
-                        result = Calculation.FindingRootsOfHigherDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
-                        foreach (var item in result)
-                        {
-                            eq = Math.Pow(item.Real, 5) * fifthElement + Math.Pow(item.Real, 4) * fourthElement + Math.Pow(item.Real, 3) * thirdElement + (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement + item.Real * firstElement + freeElement;
-                            if (eq != 0)
-                            {
-                                stringCondition = "Проверка неверна: ";
-                                number += eq.ToString() + "\n";
-                            }
-                        }
-                        MassageBoxWrong(stringCondition, number);
-                        break;
-                    }
+                eq = Math.Pow(item.Real, 5) * fifthElement + Math.Pow(item.Real, 4) * fourthElement + Math.Pow(item.Real, 3) * thirdElement + (Math.Pow(item.Real, 2) - Math.Pow(item.Imaginary, 2)) * secondElement + item.Real * firstElement + freeElement;
+                if (eq != 0)
+                {
+                    stringCondition = "Проверка неверна: ";
+                    number += eq.ToString() + "\n";
+                }
             }
-        }
-
-        private void PowButton(int pow)
-        {
-            textBoxFirstDegree.Enabled = true;
-            textBoxFreeMember.Enabled = true;
-
-            buttonFindRoofs.Enabled = true;
-
-            labelThirstDegree.Enabled = true;
-
-            textBoxFifthDegree.Enabled = pow > 4;
-            textBoxFourthDegree.Enabled = pow > 3;
-            textBoxThirdDegree.Enabled = pow > 2;
-            textBoxSecondDegree.Enabled = pow > 1;
-
-            labelFifthDegree.Enabled = pow > 4;
-            labelFourthDegree.Enabled = pow > 3;
-            labelThirdDegree.Enabled = pow > 2;
-            labelSecondDegree.Enabled = pow > 1;
-
-            if (pow < 5) textBoxFifthDegree.Text = string.Empty;
-            if (pow < 4) textBoxFourthDegree.Text = string.Empty;
-            if (pow < 3) textBoxThirdDegree.Text = string.Empty;
-            if (pow < 2) textBoxSecondDegree.Text = string.Empty;
-
-            if (pow == 5) textBoxFifthDegree.Focus();
-            if (pow == 4) textBoxFourthDegree.Focus();
-            if (pow == 3) textBoxThirdDegree.Focus();
-            if (pow == 2) textBoxFirstDegree.Focus();
-            if (pow == 1) textBoxFreeMember.Focus();
-        }
-
-        private void comboBox1_TextChanged(object sender, EventArgs e)
-        {
-            textBoxFindRoofs.Clear();
-
-            textBoxFifthDegree.Clear();
-            textBoxFourthDegree.Clear();
-            textBoxThirdDegree.Clear();
-            textBoxSecondDegree.Clear();
-            textBoxFirstDegree.Clear();
-            textBoxFreeMember.Clear();
-
-            int.TryParse(comboBox1.Text, out condition);
-
-            switch (condition)
-            {
-                case 1:
-                    {
-                        groupBoxOfMethodSolution.Enabled = true;
-                        PowButton(condition);
-                        break;
-                    }
-                case 2:
-                    {
-                        groupBoxOfMethodSolution.Enabled = true;
-                        PowButton(condition);
-                        break;
-                    }
-                case 3:
-                    {
-                        groupBoxOfMethodSolution.Enabled = true;
-                        PowButton(condition);
-                        break;
-                    }
-                case 4:
-                    {
-                        groupBoxOfMethodSolution.Enabled = false;
-                        PowButton(condition);
-                        break;
-                    }
-                case 5:
-                    {
-                        groupBoxOfMethodSolution.Enabled = false;
-                        PowButton(condition);
-                        break;
-                    }
-                default:
-                    groupBoxOfMethodSolution.Enabled = false;
-                    break;
-            }
-        }
-
-        private void buttonFindRoofs_Click(object sender, EventArgs e)
-        {
-            buttonBuildGraph.Enabled = true;
-
-            IEnumerable<Complex> result;
-            buttonVerification.Enabled = true;
-
-            textBoxFindRoofs.Clear();
-
-            double.TryParse(textBoxFreeMember.Text, out freeElement);
-            double.TryParse(textBoxFirstDegree.Text, out firstElement);
-            double.TryParse(textBoxSecondDegree.Text, out secondElement);
-            double.TryParse(textBoxThirdDegree.Text, out thirdElement);
-            double.TryParse(textBoxFourthDegree.Text, out fourthElement);
-            double.TryParse(textBoxFifthDegree.Text, out fifthElement);
-
-            switch (condition)
-            {
-                case 1:
-                    {
-                        double EquationOfTheFirstDegree;
-                        if (firstElement==0)
-                        {
-                            MessageBox.Show("Коэффициент при х не может быть нулём");
-                            this.Close();
-                        }
-                        if (radioButton1.Checked)
-                        {
-                            EquationOfTheFirstDegree = (freeElement * (-1)) / firstElement;
-                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + EquationOfTheFirstDegree.ToString() + Environment.NewLine;                   
-                            if (textBoxFindRoofs.Text==null)
-                            {
-                                textBoxFindRoofs.Text = "нет корней";
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            result = Calculation.FindingRootsOfHigherDegree(0, 0, 0, 0, firstElement, freeElement);
-                            foreach (var item in result)
-                            {
-                                textBoxFindRoofs.Text = textBoxFindRoofs.Text + item.ToString() + Environment.NewLine;
-                            }
-                        }
-                        if (string.IsNullOrEmpty(textBoxFindRoofs.Text)) textBoxFindRoofs.Text = "Нет корней";
-                        break;
-                    }
-                case 2:
-                    {
-                        if (secondElement == 0)
-                        {
-                            MessageBox.Show("Коэффициент при х^2 не может быть нулём");
-                            this.Close();
-                        }
-                        if (radioButton1.Checked) result = Calculation.EquationOfTheSecondDegree(secondElement, firstElement, freeElement);
-                        else result = Calculation.FindingRootsOfHigherDegree(0, 0, 0, secondElement, firstElement, freeElement);
-                        foreach (var item in result)
-                        {
-                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + item.ToString() + Environment.NewLine;
-                        }
-                        if (string.IsNullOrEmpty(textBoxFindRoofs.Text)) textBoxFindRoofs.Text = "Нет корней";
-                        break;
-                    }
-                case 3:
-                    {
-                        if (thirdElement == 0)
-                        {
-                            MessageBox.Show("Коэффициент при х^3 не может быть нулём");
-                            this.Close();
-                        }
-                        if (radioButton1.Checked) result = Calculation.EquationOfTheThirdDegree(thirdElement, secondElement, firstElement, freeElement);
-                        else result = Calculation.FindingRootsOfHigherDegree(0, 0, thirdElement, secondElement, firstElement, freeElement);
-                        foreach (var item in result)
-                        {
-                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
-                        }
-                        if (string.IsNullOrEmpty(textBoxFindRoofs.Text)) textBoxFindRoofs.Text = "Нет корней";
-                        break;
-                    }
-                case 4:
-                    {
-                        if (fourthElement == 0)
-                        {
-                            MessageBox.Show("Коэффициент при х^4 не может быть нулём");
-                            this.Close();
-                        }
-                        result = Calculation.FindingRootsOfHigherDegree(0,fourthElement, thirdElement, secondElement, firstElement, freeElement);
-
-                        foreach (var item in result)
-                        {
-                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
-                        }
-                        if (string.IsNullOrEmpty(textBoxFindRoofs.Text)) textBoxFindRoofs.Text = "Нет корней";
-                        break;
-                    }
-                case 5:
-                    {
-                        if (fifthElement == 0)
-                        {
-                            MessageBox.Show("Коэффициент при х^5 не может быть нулём");
-                            this.Close();
-                        }
-                        result = Calculation.FindingRootsOfHigherDegree(fifthElement, fourthElement, thirdElement, secondElement, firstElement, freeElement);
-
-                        foreach (var item in result)
-                        {
-                            textBoxFindRoofs.Text = textBoxFindRoofs.Text + GetString(item) + Environment.NewLine;
-                        }
-                        if (string.IsNullOrEmpty(textBoxFindRoofs.Text)) textBoxFindRoofs.Text = "Нет корней";
-                        break;
-                    }
-            }
+            MassageBoxWrong(stringCondition, number);
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
         {
-            textBoxFindRoofs.Clear();
+            numericFifthDegree.Text = "0";
+            numericFourthDegree.Text = "0";
+            numericThirdDegree.Text = "0";
+            numericSecondDegree.Text = "0";
+            numericFirstDegree.Text = "0";
+            numericFreeDegree.Text = "0";
+
+            textBoxFindRoots.Clear();
             chart1.Series[0].Points.Clear();
-
-            textBoxFifthDegree.Clear();
-            textBoxFourthDegree.Clear();
-            textBoxThirdDegree.Clear();
-            textBoxSecondDegree.Clear();
-            textBoxFirstDegree.Clear();
-            textBoxFreeMember.Clear();
         }
-
-        private void buttonBuildGraph_Click(object sender, EventArgs e)=>BuildGraph();
 
         private void textBoxLeftSide_KeyUp(object sender, KeyEventArgs e)
         {
@@ -436,107 +178,49 @@ namespace WindowsFormsApp4
             textBoxLeftSide.Text = Math.Round(chart1.ChartAreas[0].AxisX.Minimum, 2).ToString();
             textBoxRightSide.Text = Math.Round(chart1.ChartAreas[0].AxisX.Maximum, 2).ToString();
         }
-        private void textBoxFreeMember_KeyPress(object sender, KeyPressEventArgs e)
+        private void buttonBuildGraph_Click(object sender, EventArgs e) => BuildGraph();
+        private void numericFifthDegree_Leave(object sender, EventArgs e)
         {
-            if (e.KeyChar == 45 && textBoxFreeMember.SelectionStart == 0) {; }
-            else
-            {
-                if (e.KeyChar == '.') e.KeyChar = ',';
-                if (e.KeyChar != 13 && e.KeyChar != 44 && e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != '-')
-                {
-                    e.Handled = true;
-                    MessageBox.Show("Только цифры,точку(запятую),минус");
-                }
-            }
-            if (e.KeyChar == 13)
-                if (textBoxFreeMember.Text.Length > 0) buttonFindRoofs_Click(textBoxFreeMember, null);
-                else MessageBox.Show("Введите число");
+            if (string.IsNullOrEmpty(numericFifthDegree.Text)) numericFifthDegree.Text = "0";
         }
 
-        private void textBoxFirstDegree_KeyPress(object sender, KeyPressEventArgs e)
+
+        private void numericFourthDegree_Leave(object sender, EventArgs e)
         {
-            if (e.KeyChar == 45 && textBoxFreeMember.SelectionStart == 0) {; }
-            else
-            {
-                if (e.KeyChar == '.') e.KeyChar = ',';
-                if (e.KeyChar != 13 && e.KeyChar != 44 && e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != '-')
-                {
-                    e.Handled = true;
-                    MessageBox.Show("Только цифры,точку(запятую),минус");
-                }
-            }
-            if (e.KeyChar == 13)
-                if (textBoxFreeMember.Text.Length > 0) buttonFindRoofs_Click(textBoxFreeMember, null);
-                else MessageBox.Show("Введите число");
+            if (string.IsNullOrEmpty(numericFourthDegree.Text)) numericFourthDegree.Text = "0";
         }
 
-        private void textBoxSecondDegree_KeyPress_1(object sender, KeyPressEventArgs e)
+        private void numericThirdDegree_Leave(object sender, EventArgs e)
         {
-
-            if (e.KeyChar == 45 && textBoxFreeMember.SelectionStart == 0) {; }
-            else
-            {
-                if (e.KeyChar == '.') e.KeyChar = ',';
-                if (e.KeyChar != 13 && e.KeyChar != 44 && e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar!='-')
-                {
-                    e.Handled = true;
-                    MessageBox.Show("Только цифры,точку(запятую),минус");
-                }
-            }
-            if (e.KeyChar == 13)
-                if (textBoxFreeMember.Text.Length > 0) buttonFindRoofs_Click(textBoxFreeMember, null);
-                else MessageBox.Show("Введите число");
+            if (string.IsNullOrEmpty(numericThirdDegree.Text)) numericThirdDegree.Text = "0";
         }
 
-        private void textBoxThirdDegree_KeyPress_1(object sender, KeyPressEventArgs e)
+        private void numericSecondDegree_Leave(object sender, EventArgs e)
         {
-            if (e.KeyChar == 45 && textBoxFreeMember.SelectionStart == 0) {; }
-            else
-            {
-                if (e.KeyChar == '.') e.KeyChar = ',';
-                if (e.KeyChar != 13 && e.KeyChar != 44 && e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != '-')
-                {
-                    e.Handled = true;
-                    MessageBox.Show("Только цифры,точку(запятую),минус");
-                }
-            }
-            if (e.KeyChar == 13)
-                if (textBoxFreeMember.Text.Length > 0) buttonFindRoofs_Click(textBoxFreeMember, null);
-                else MessageBox.Show("Введите число");
+            if (string.IsNullOrEmpty(numericSecondDegree.Text)) numericSecondDegree.Text = "0";
         }
 
-        private void textBoxFourthDegree_KeyPress_1(object sender, KeyPressEventArgs e)
+        private void numericFirstDegree_Leave(object sender, EventArgs e)
         {
-            if (e.KeyChar == 45 && textBoxFreeMember.SelectionStart == 0) {; }
-            else
-            {
-                if (e.KeyChar == '.') e.KeyChar = ',';
-                if (e.KeyChar != 13 && e.KeyChar != 44 && e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != '-')
-                {
-                    e.Handled = true;
-                    MessageBox.Show("Только цифры,точку(запятую),минус");
-                }
-            }
-            if (e.KeyChar == 13)
-                if (textBoxFreeMember.Text.Length > 0) buttonFindRoofs_Click(textBoxFreeMember, null);
-                else MessageBox.Show("Введите число");
+            if (string.IsNullOrEmpty(numericFirstDegree.Text)) numericFirstDegree.Text = "0";
         }
 
-        private void textBoxFifthDegree_KeyPress_1(object sender, KeyPressEventArgs e)
+        private void numericFreeDegree_Leave(object sender, EventArgs e)
         {
-            if (e.KeyChar == 45 && textBoxFreeMember.SelectionStart == 0) {; }
-            else
-            {
-                if (e.KeyChar == '.') e.KeyChar = ',';
-                if (e.KeyChar != 13 && e.KeyChar != 44 && e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != '-')
-                {
-                    e.Handled = true;
-                    MessageBox.Show("Только цифры,точку(запятую),минус");
-                }
-            }
-            if (e.KeyChar == 13)
-                if (textBoxFreeMember.Text.Length > 0) buttonFindRoofs_Click(textBoxFreeMember, null);
-                else MessageBox.Show("Введите число");
+            if (string.IsNullOrEmpty(numericFreeDegree.Text)) numericFreeDegree.Text = "0";
         }
+
+        private void numericFifthDegree_MouseClick(object sender, MouseEventArgs e) => numericFifthDegree.Select(0, 5);
+        private void numericFourthDegree_MouseClick(object sender, MouseEventArgs e) => numericFourthDegree.Select(0, 5);
+        private void numericThirdDegree_MouseClick(object sender, MouseEventArgs e) => numericThirdDegree.Select(0, 5);
+        private void numericSecondDegree_MouseClick(object sender, MouseEventArgs e) => numericSecondDegree.Select(0, 5);
+        private void numericFirstDegree_MouseClick(object sender, MouseEventArgs e) => numericFirstDegree.Select(0, 5);
+        private void numericFreeDegree_MouseClick(object sender, MouseEventArgs e) => numericFreeDegree.Select(0, 5);
+        private void numericFifthDegree_Enter(object sender, EventArgs e) => numericFifthDegree.Select(0, 5);
+        private void numericFourthDegree_Enter(object sender, EventArgs e) => numericFourthDegree.Select(0, 5);
+        private void numericThirdDegree_Enter(object sender, EventArgs e) => numericThirdDegree.Select(0, 5);
+        private void numericSecondDegree_Enter(object sender, EventArgs e) => numericSecondDegree.Select(0, 5);
+        private void numericFirstDegree_Enter(object sender, EventArgs e) => numericFirstDegree.Select(0, 5);
+        private void numericFreeDegree_Enter(object sender, EventArgs e) => numericFreeDegree.Select(0, 5);
     }
 }

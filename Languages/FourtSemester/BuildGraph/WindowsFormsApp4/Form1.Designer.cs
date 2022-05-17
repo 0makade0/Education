@@ -29,75 +29,41 @@ namespace WindowsFormsApp4
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.labelOfEnterEqual = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBoxFifthDegree = new System.Windows.Forms.TextBox();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.labelFifthDegree = new System.Windows.Forms.Label();
             this.labelFourthDegree = new System.Windows.Forms.Label();
-            this.textBoxFourthDegree = new System.Windows.Forms.TextBox();
             this.labelThirdDegree = new System.Windows.Forms.Label();
-            this.textBoxThirdDegree = new System.Windows.Forms.TextBox();
             this.labelSecondDegree = new System.Windows.Forms.Label();
-            this.textBoxSecondDegree = new System.Windows.Forms.TextBox();
             this.labelThirstDegree = new System.Windows.Forms.Label();
-            this.textBoxFirstDegree = new System.Windows.Forms.TextBox();
-            this.textBoxFreeMember = new System.Windows.Forms.TextBox();
             this.labelEquals = new System.Windows.Forms.Label();
-            this.buttonFindRoofs = new System.Windows.Forms.Button();
-            this.textBoxFindRoofs = new System.Windows.Forms.TextBox();
+            this.buttonFindRoots = new System.Windows.Forms.Button();
+            this.textBoxFindRoots = new System.Windows.Forms.TextBox();
             this.buttonVerification = new System.Windows.Forms.Button();
             this.buttonBuildGraph = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.ClearButton = new System.Windows.Forms.Button();
             this.textBoxLeftSide = new System.Windows.Forms.TextBox();
             this.textBoxRightSide = new System.Windows.Forms.TextBox();
-            this.groupBoxOfMethodSolution = new System.Windows.Forms.GroupBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.numericFifthDegree = new System.Windows.Forms.NumericUpDown();
+            this.numericFourthDegree = new System.Windows.Forms.NumericUpDown();
+            this.numericThirdDegree = new System.Windows.Forms.NumericUpDown();
+            this.numericSecondDegree = new System.Windows.Forms.NumericUpDown();
+            this.numericFirstDegree = new System.Windows.Forms.NumericUpDown();
+            this.numericFreeDegree = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
-            this.groupBoxOfMethodSolution.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFifthDegree)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFourthDegree)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericThirdDegree)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericSecondDegree)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFirstDegree)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFreeDegree)).BeginInit();
             this.SuspendLayout();
-            // 
-            // labelOfEnterEqual
-            // 
-            this.labelOfEnterEqual.AutoSize = true;
-            this.labelOfEnterEqual.Location = new System.Drawing.Point(3, 9);
-            this.labelOfEnterEqual.Name = "labelOfEnterEqual";
-            this.labelOfEnterEqual.Size = new System.Drawing.Size(160, 13);
-            this.labelOfEnterEqual.TabIndex = 0;
-            this.labelOfEnterEqual.Text = "Выберите степень уравнения:";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"});
-            this.comboBox1.Location = new System.Drawing.Point(169, 6);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 2;
-            this.comboBox1.TextChanged += new System.EventHandler(this.comboBox1_TextChanged);
-            // 
-            // textBoxFifthDegree
-            // 
-            this.textBoxFifthDegree.Location = new System.Drawing.Point(6, 40);
-            this.textBoxFifthDegree.Name = "textBoxFifthDegree";
-            this.textBoxFifthDegree.Size = new System.Drawing.Size(23, 20);
-            this.textBoxFifthDegree.TabIndex = 3;
-            this.textBoxFifthDegree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxFifthDegree_KeyPress_1);
             // 
             // labelFifthDegree
             // 
             this.labelFifthDegree.AutoSize = true;
-            this.labelFifthDegree.Location = new System.Drawing.Point(35, 43);
+            this.labelFifthDegree.Location = new System.Drawing.Point(58, 6);
             this.labelFifthDegree.Name = "labelFifthDegree";
             this.labelFifthDegree.Size = new System.Drawing.Size(30, 13);
             this.labelFifthDegree.TabIndex = 4;
@@ -106,109 +72,69 @@ namespace WindowsFormsApp4
             // labelFourthDegree
             // 
             this.labelFourthDegree.AutoSize = true;
-            this.labelFourthDegree.Location = new System.Drawing.Point(93, 43);
+            this.labelFourthDegree.Location = new System.Drawing.Point(142, 6);
             this.labelFourthDegree.Name = "labelFourthDegree";
             this.labelFourthDegree.Size = new System.Drawing.Size(30, 13);
             this.labelFourthDegree.TabIndex = 6;
             this.labelFourthDegree.Text = "x^4+";
             // 
-            // textBoxFourthDegree
-            // 
-            this.textBoxFourthDegree.Location = new System.Drawing.Point(64, 40);
-            this.textBoxFourthDegree.Name = "textBoxFourthDegree";
-            this.textBoxFourthDegree.Size = new System.Drawing.Size(23, 20);
-            this.textBoxFourthDegree.TabIndex = 5;
-            this.textBoxFourthDegree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxFourthDegree_KeyPress_1);
-            // 
             // labelThirdDegree
             // 
             this.labelThirdDegree.AutoSize = true;
-            this.labelThirdDegree.Location = new System.Drawing.Point(152, 43);
+            this.labelThirdDegree.Location = new System.Drawing.Point(226, 5);
             this.labelThirdDegree.Name = "labelThirdDegree";
             this.labelThirdDegree.Size = new System.Drawing.Size(30, 13);
             this.labelThirdDegree.TabIndex = 8;
             this.labelThirdDegree.Text = "x^3+";
             // 
-            // textBoxThirdDegree
-            // 
-            this.textBoxThirdDegree.Location = new System.Drawing.Point(123, 40);
-            this.textBoxThirdDegree.Name = "textBoxThirdDegree";
-            this.textBoxThirdDegree.Size = new System.Drawing.Size(23, 20);
-            this.textBoxThirdDegree.TabIndex = 7;
-            this.textBoxThirdDegree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxThirdDegree_KeyPress_1);
-            // 
             // labelSecondDegree
             // 
             this.labelSecondDegree.AutoSize = true;
-            this.labelSecondDegree.Location = new System.Drawing.Point(210, 43);
+            this.labelSecondDegree.Location = new System.Drawing.Point(310, 6);
             this.labelSecondDegree.Name = "labelSecondDegree";
             this.labelSecondDegree.Size = new System.Drawing.Size(30, 13);
             this.labelSecondDegree.TabIndex = 10;
             this.labelSecondDegree.Text = "x^2+";
             // 
-            // textBoxSecondDegree
-            // 
-            this.textBoxSecondDegree.Location = new System.Drawing.Point(181, 40);
-            this.textBoxSecondDegree.Name = "textBoxSecondDegree";
-            this.textBoxSecondDegree.Size = new System.Drawing.Size(23, 20);
-            this.textBoxSecondDegree.TabIndex = 9;
-            this.textBoxSecondDegree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxSecondDegree_KeyPress_1);
-            // 
             // labelThirstDegree
             // 
             this.labelThirstDegree.AutoSize = true;
-            this.labelThirstDegree.Location = new System.Drawing.Point(269, 43);
+            this.labelThirstDegree.Location = new System.Drawing.Point(394, 6);
             this.labelThirstDegree.Name = "labelThirstDegree";
             this.labelThirstDegree.Size = new System.Drawing.Size(18, 13);
             this.labelThirstDegree.TabIndex = 12;
             this.labelThirstDegree.Text = "x+";
             // 
-            // textBoxFirstDegree
-            // 
-            this.textBoxFirstDegree.Location = new System.Drawing.Point(240, 40);
-            this.textBoxFirstDegree.Name = "textBoxFirstDegree";
-            this.textBoxFirstDegree.Size = new System.Drawing.Size(23, 20);
-            this.textBoxFirstDegree.TabIndex = 11;
-            this.textBoxFirstDegree.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxFirstDegree_KeyPress);
-            // 
-            // textBoxFreeMember
-            // 
-            this.textBoxFreeMember.Location = new System.Drawing.Point(296, 40);
-            this.textBoxFreeMember.Name = "textBoxFreeMember";
-            this.textBoxFreeMember.Size = new System.Drawing.Size(23, 20);
-            this.textBoxFreeMember.TabIndex = 13;
-            this.textBoxFreeMember.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxFreeMember_KeyPress);
-            // 
             // labelEquals
             // 
             this.labelEquals.AutoSize = true;
-            this.labelEquals.Location = new System.Drawing.Point(325, 43);
+            this.labelEquals.Location = new System.Drawing.Point(466, 6);
             this.labelEquals.Name = "labelEquals";
             this.labelEquals.Size = new System.Drawing.Size(19, 13);
             this.labelEquals.TabIndex = 14;
             this.labelEquals.Text = "=0";
             // 
-            // buttonFindRoofs
+            // buttonFindRoots
             // 
-            this.buttonFindRoofs.Location = new System.Drawing.Point(451, 233);
-            this.buttonFindRoofs.Name = "buttonFindRoofs";
-            this.buttonFindRoofs.Size = new System.Drawing.Size(122, 23);
-            this.buttonFindRoofs.TabIndex = 15;
-            this.buttonFindRoofs.Text = "Найти корни";
-            this.buttonFindRoofs.UseVisualStyleBackColor = true;
-            this.buttonFindRoofs.Click += new System.EventHandler(this.buttonFindRoofs_Click);
+            this.buttonFindRoots.Location = new System.Drawing.Point(451, 196);
+            this.buttonFindRoots.Name = "buttonFindRoots";
+            this.buttonFindRoots.Size = new System.Drawing.Size(122, 23);
+            this.buttonFindRoots.TabIndex = 15;
+            this.buttonFindRoots.Text = "Найти корни";
+            this.buttonFindRoots.UseVisualStyleBackColor = true;
+            this.buttonFindRoots.Click += new System.EventHandler(this.buttonFindRoofs_Click);
             // 
-            // textBoxFindRoofs
+            // textBoxFindRoots
             // 
-            this.textBoxFindRoofs.Location = new System.Drawing.Point(451, 69);
-            this.textBoxFindRoofs.Multiline = true;
-            this.textBoxFindRoofs.Name = "textBoxFindRoofs";
-            this.textBoxFindRoofs.Size = new System.Drawing.Size(122, 161);
-            this.textBoxFindRoofs.TabIndex = 16;
+            this.textBoxFindRoots.Location = new System.Drawing.Point(451, 29);
+            this.textBoxFindRoots.Multiline = true;
+            this.textBoxFindRoots.Name = "textBoxFindRoots";
+            this.textBoxFindRoots.Size = new System.Drawing.Size(122, 161);
+            this.textBoxFindRoots.TabIndex = 16;
             // 
             // buttonVerification
             // 
-            this.buttonVerification.Location = new System.Drawing.Point(451, 262);
+            this.buttonVerification.Location = new System.Drawing.Point(451, 225);
             this.buttonVerification.Name = "buttonVerification";
             this.buttonVerification.Size = new System.Drawing.Size(122, 23);
             this.buttonVerification.TabIndex = 17;
@@ -218,7 +144,7 @@ namespace WindowsFormsApp4
             // 
             // buttonBuildGraph
             // 
-            this.buttonBuildGraph.Location = new System.Drawing.Point(12, 291);
+            this.buttonBuildGraph.Location = new System.Drawing.Point(12, 254);
             this.buttonBuildGraph.Name = "buttonBuildGraph";
             this.buttonBuildGraph.Size = new System.Drawing.Size(433, 23);
             this.buttonBuildGraph.TabIndex = 23;
@@ -228,17 +154,17 @@ namespace WindowsFormsApp4
             // 
             // chart1
             // 
-            chartArea1.AxisX.LabelStyle.Format = "{0:0.0}";
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.Location = new System.Drawing.Point(12, 69);
+            chartArea7.AxisX.LabelStyle.Format = "{0:0.0}";
+            chartArea7.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea7);
+            this.chart1.Location = new System.Drawing.Point(12, 29);
             this.chart1.Name = "chart1";
             this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series1.BorderWidth = 3;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
+            series7.BorderWidth = 3;
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series7.Name = "Series1";
+            this.chart1.Series.Add(series7);
             this.chart1.Size = new System.Drawing.Size(433, 190);
             this.chart1.TabIndex = 24;
             this.chart1.Text = "chart1";
@@ -246,7 +172,7 @@ namespace WindowsFormsApp4
             // 
             // ClearButton
             // 
-            this.ClearButton.Location = new System.Drawing.Point(451, 291);
+            this.ClearButton.Location = new System.Drawing.Point(451, 254);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(122, 23);
             this.ClearButton.TabIndex = 25;
@@ -256,7 +182,7 @@ namespace WindowsFormsApp4
             // 
             // textBoxLeftSide
             // 
-            this.textBoxLeftSide.Location = new System.Drawing.Point(12, 265);
+            this.textBoxLeftSide.Location = new System.Drawing.Point(12, 225);
             this.textBoxLeftSide.Name = "textBoxLeftSide";
             this.textBoxLeftSide.Size = new System.Drawing.Size(23, 20);
             this.textBoxLeftSide.TabIndex = 28;
@@ -264,110 +190,193 @@ namespace WindowsFormsApp4
             // 
             // textBoxRightSide
             // 
-            this.textBoxRightSide.Location = new System.Drawing.Point(422, 265);
+            this.textBoxRightSide.Location = new System.Drawing.Point(422, 225);
             this.textBoxRightSide.Name = "textBoxRightSide";
             this.textBoxRightSide.Size = new System.Drawing.Size(23, 20);
             this.textBoxRightSide.TabIndex = 29;
             this.textBoxRightSide.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxRightSide_KeyUp);
             // 
-            // groupBoxOfMethodSolution
+            // numericFifthDegree
             // 
-            this.groupBoxOfMethodSolution.Controls.Add(this.radioButton2);
-            this.groupBoxOfMethodSolution.Controls.Add(this.radioButton1);
-            this.groupBoxOfMethodSolution.Location = new System.Drawing.Point(451, 4);
-            this.groupBoxOfMethodSolution.Name = "groupBoxOfMethodSolution";
-            this.groupBoxOfMethodSolution.Size = new System.Drawing.Size(122, 56);
-            this.groupBoxOfMethodSolution.TabIndex = 30;
-            this.groupBoxOfMethodSolution.TabStop = false;
+            this.numericFifthDegree.Location = new System.Drawing.Point(12, 3);
+            this.numericFifthDegree.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericFifthDegree.Minimum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            -2147483648});
+            this.numericFifthDegree.Name = "numericFifthDegree";
+            this.numericFifthDegree.Size = new System.Drawing.Size(40, 20);
+            this.numericFifthDegree.TabIndex = 30;
+            this.numericFifthDegree.Enter += new System.EventHandler(this.numericFifthDegree_Enter);
+            this.numericFifthDegree.Leave += new System.EventHandler(this.numericFifthDegree_Leave);
+            this.numericFifthDegree.MouseClick += new System.Windows.Forms.MouseEventHandler(this.numericFifthDegree_MouseClick);
             // 
-            // radioButton2
+            // numericFourthDegree
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(0, 31);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(83, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Численный";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.numericFourthDegree.Location = new System.Drawing.Point(94, 3);
+            this.numericFourthDegree.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericFourthDegree.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numericFourthDegree.Name = "numericFourthDegree";
+            this.numericFourthDegree.Size = new System.Drawing.Size(42, 20);
+            this.numericFourthDegree.TabIndex = 31;
+            this.numericFourthDegree.Enter += new System.EventHandler(this.numericFourthDegree_Enter);
+            this.numericFourthDegree.Leave += new System.EventHandler(this.numericFourthDegree_Leave);
+            this.numericFourthDegree.MouseClick += new System.Windows.Forms.MouseEventHandler(this.numericFourthDegree_MouseClick);
             // 
-            // radioButton1
+            // numericThirdDegree
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(0, 8);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(102, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Аналитический";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.numericThirdDegree.Location = new System.Drawing.Point(178, 3);
+            this.numericThirdDegree.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericThirdDegree.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numericThirdDegree.Name = "numericThirdDegree";
+            this.numericThirdDegree.Size = new System.Drawing.Size(42, 20);
+            this.numericThirdDegree.TabIndex = 32;
+            this.numericThirdDegree.Enter += new System.EventHandler(this.numericThirdDegree_Enter);
+            this.numericThirdDegree.Leave += new System.EventHandler(this.numericThirdDegree_Leave);
+            this.numericThirdDegree.MouseClick += new System.Windows.Forms.MouseEventHandler(this.numericThirdDegree_MouseClick);
+            // 
+            // numericSecondDegree
+            // 
+            this.numericSecondDegree.Location = new System.Drawing.Point(262, 4);
+            this.numericSecondDegree.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numericSecondDegree.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numericSecondDegree.Name = "numericSecondDegree";
+            this.numericSecondDegree.Size = new System.Drawing.Size(42, 20);
+            this.numericSecondDegree.TabIndex = 33;
+            this.numericSecondDegree.Enter += new System.EventHandler(this.numericSecondDegree_Enter);
+            this.numericSecondDegree.Leave += new System.EventHandler(this.numericSecondDegree_Leave);
+            this.numericSecondDegree.MouseClick += new System.Windows.Forms.MouseEventHandler(this.numericSecondDegree_MouseClick);
+            // 
+            // numericFirstDegree
+            // 
+            this.numericFirstDegree.Location = new System.Drawing.Point(346, 4);
+            this.numericFirstDegree.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericFirstDegree.Minimum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            -2147483648});
+            this.numericFirstDegree.Name = "numericFirstDegree";
+            this.numericFirstDegree.Size = new System.Drawing.Size(42, 20);
+            this.numericFirstDegree.TabIndex = 34;
+            this.numericFirstDegree.Enter += new System.EventHandler(this.numericFirstDegree_Enter);
+            this.numericFirstDegree.Leave += new System.EventHandler(this.numericFirstDegree_Leave);
+            this.numericFirstDegree.MouseClick += new System.Windows.Forms.MouseEventHandler(this.numericFirstDegree_MouseClick);
+            // 
+            // numericFreeDegree
+            // 
+            this.numericFreeDegree.Location = new System.Drawing.Point(418, 4);
+            this.numericFreeDegree.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericFreeDegree.Minimum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            -2147483648});
+            this.numericFreeDegree.Name = "numericFreeDegree";
+            this.numericFreeDegree.Size = new System.Drawing.Size(42, 20);
+            this.numericFreeDegree.TabIndex = 35;
+            this.numericFreeDegree.Enter += new System.EventHandler(this.numericFreeDegree_Enter);
+            this.numericFreeDegree.Leave += new System.EventHandler(this.numericFreeDegree_Leave);
+            this.numericFreeDegree.MouseClick += new System.Windows.Forms.MouseEventHandler(this.numericFreeDegree_MouseClick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(585, 328);
-            this.Controls.Add(this.groupBoxOfMethodSolution);
-            this.Controls.Add(this.comboBox1);
+            this.ClientSize = new System.Drawing.Size(585, 288);
+            this.Controls.Add(this.numericFreeDegree);
+            this.Controls.Add(this.numericFirstDegree);
+            this.Controls.Add(this.numericSecondDegree);
+            this.Controls.Add(this.numericThirdDegree);
+            this.Controls.Add(this.numericFourthDegree);
+            this.Controls.Add(this.numericFifthDegree);
             this.Controls.Add(this.textBoxRightSide);
             this.Controls.Add(this.textBoxLeftSide);
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.buttonBuildGraph);
             this.Controls.Add(this.buttonVerification);
-            this.Controls.Add(this.textBoxFindRoofs);
-            this.Controls.Add(this.buttonFindRoofs);
+            this.Controls.Add(this.textBoxFindRoots);
+            this.Controls.Add(this.buttonFindRoots);
             this.Controls.Add(this.labelEquals);
-            this.Controls.Add(this.textBoxFreeMember);
             this.Controls.Add(this.labelThirstDegree);
-            this.Controls.Add(this.textBoxFirstDegree);
             this.Controls.Add(this.labelSecondDegree);
-            this.Controls.Add(this.textBoxSecondDegree);
             this.Controls.Add(this.labelThirdDegree);
-            this.Controls.Add(this.textBoxThirdDegree);
             this.Controls.Add(this.labelFourthDegree);
-            this.Controls.Add(this.textBoxFourthDegree);
             this.Controls.Add(this.labelFifthDegree);
-            this.Controls.Add(this.textBoxFifthDegree);
-            this.Controls.Add(this.labelOfEnterEqual);
             this.Name = "Form1";
             this.Text = "Решение уравнений";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
-            this.groupBoxOfMethodSolution.ResumeLayout(false);
-            this.groupBoxOfMethodSolution.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFifthDegree)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFourthDegree)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericThirdDegree)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericSecondDegree)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFirstDegree)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericFreeDegree)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label labelOfEnterEqual;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBoxFifthDegree;
         private System.Windows.Forms.Label labelFifthDegree;
         private System.Windows.Forms.Label labelFourthDegree;
-        private System.Windows.Forms.TextBox textBoxFourthDegree;
         private System.Windows.Forms.Label labelThirdDegree;
-        private System.Windows.Forms.TextBox textBoxThirdDegree;
         private System.Windows.Forms.Label labelSecondDegree;
-        private System.Windows.Forms.TextBox textBoxSecondDegree;
         private System.Windows.Forms.Label labelThirstDegree;
-        private System.Windows.Forms.TextBox textBoxFirstDegree;
-        private System.Windows.Forms.TextBox textBoxFreeMember;
         private System.Windows.Forms.Label labelEquals;
-        private System.Windows.Forms.Button buttonFindRoofs;
-        private System.Windows.Forms.TextBox textBoxFindRoofs;
+        private System.Windows.Forms.Button buttonFindRoots;
+        private System.Windows.Forms.TextBox textBoxFindRoots;
         private System.Windows.Forms.Button buttonVerification;
         private System.Windows.Forms.Button buttonBuildGraph;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Button ClearButton;
         private System.Windows.Forms.TextBox textBoxLeftSide;
         private System.Windows.Forms.TextBox textBoxRightSide;
-        private System.Windows.Forms.GroupBox groupBoxOfMethodSolution;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.NumericUpDown numericFifthDegree;
+        private System.Windows.Forms.NumericUpDown numericFourthDegree;
+        private System.Windows.Forms.NumericUpDown numericThirdDegree;
+        private System.Windows.Forms.NumericUpDown numericSecondDegree;
+        private System.Windows.Forms.NumericUpDown numericFirstDegree;
+        private System.Windows.Forms.NumericUpDown numericFreeDegree;
     }
 }
 
