@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinearSort", "LinearSort\LinearSort.csproj", "{48D2FE48-433D-42CF-8D3E-499AB8B0A12C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject2", "TestProject2\TestProject2.csproj", "{76B7E4DD-BE06-471A-8909-F9F2CD30F2BA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{48D2FE48-433D-42CF-8D3E-499AB8B0A12C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48D2FE48-433D-42CF-8D3E-499AB8B0A12C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48D2FE48-433D-42CF-8D3E-499AB8B0A12C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48D2FE48-433D-42CF-8D3E-499AB8B0A12C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76B7E4DD-BE06-471A-8909-F9F2CD30F2BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76B7E4DD-BE06-471A-8909-F9F2CD30F2BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76B7E4DD-BE06-471A-8909-F9F2CD30F2BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76B7E4DD-BE06-471A-8909-F9F2CD30F2BA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
